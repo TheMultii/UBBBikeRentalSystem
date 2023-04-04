@@ -1,0 +1,154 @@
+﻿@model UBBBikeRentalSystem.ViewModels.VehicleDetailViewModel
+
+@{
+    ViewData["Title"] = "Informacje o pojeździe";
+}
+
+<div class="wraper">
+    <div class="grid grid-cols-12">
+        <div class="col-span-1"></div>
+        <div class="col-span-10 md:col-span-12">
+            <div class="py-[50px] sm:py-[30px]">
+                <div class="grid grid-cols-12 gap-3">
+                    <div class="col-span-4 sm:col-span-12 md:mb-7 grid place-content-center">
+                        <img src="@Model.ImageUrl" class="w-full rounded mx-auto select-none pointer-events-none" />
+                    </div>
+                    <div class="col-span-8 sm:col-span-12 md:mb-7">
+                        <div class="flow-root">
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                ID
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.ID)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Name
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Name)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Model
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Model)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                               Typ pojazdu
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.VehicleType)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Opis
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Description)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Dostępność
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @(Model.IsAvailable ? "Dostępny" : "Niedostępny")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Data produkcji
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.ManufactureDate)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Maksymalna prędkość
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.MaxSpeed)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Cena/godzina
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.PricePerHour)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            @*@Html.ActionLink("Edit", "Edit", new {  id = Model.ID })*@
+                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Index">
+                                                Powrót do listy
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-1"></div>
+    </div>
+</div>

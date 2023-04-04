@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Strona główna";
+}
+
+<div class="h-[900px] xl:h-[850px] lg:h-[650px] md:h-[900px] sm:h-[800px] col:h-[800px] relative z-40 overflow-hidden">
+    @*welcome text*@
+    <div class="w-full h-full bg-cover bg-center  text-left z-50">
+        <div class="wraper">
+            <div class="flex-1">
+                <div class="w-[660px] lg:w-[470px] mt-[210px] xl:mt-[150px] md:mt-[100px] md:w-full md:text-center">
+                    <h2 class="text-white text-[90px] font-bold leading-[100px] mb-[10px] lg:text-[65px] lg:mb-[10px] lg:leading-[75px] md:text-[45px] md:leading-[45px]  col:text-[35px] col:leading-[35px] col:mb-[0px]">
+                        UBB Bike Rental System
+                    </h2>
+                    <h5 class="text-[#59C378] text-[21px] font-semibold leading-[39px] mb-[20px] lg:text-[28px] md:text-[22px] md:mb-[10px] col:text-[20px] col:mb-[5px]">Wypożyczalnia pojazdów</h5>
+                    <p class="text-white text-[16px] font-normal leading-[33px] mb-[30px] col:text-[15px] col:leading-[28px] md:mx-[80px] col:mx-0">
+                        Serwis rowerowy, w którym możesz wypożyczyć różne pojazdy, który musisz później oddać. No i jeszcze płacisz za wynajem.
+                    </p>
+                    <a class="relative bg-[#202020] text-white inline-block font-semibold py-[15px] px-[35px] rounded-[5px] capitalize text-[16px]"
+                       asp-controller="Vehicle" asp-action="">
+                        Zobacz dostępne pojazdy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @*img*@
+    <div class="absolute top-[45%] rounded-[50%] right-[200px] z-10 transform -translate-y-1/2 2xl:max-w-[500px] lg:max-w-[450px]  lg:top-[54%] 2xl:right-[80px] xl:right-[30px] lg:right-[50px] md:top-[68%] md:mx-auto md:right-auto md:left-1/2 md:-translate-x-1/2 sm:top-[75%] sm:w-[400px] sm:h-[400px] sm:left-1/2 sm:m-0 col:top-[68%] col:w-[300px] col:h-[300px]">
+        <img class="rounded-[50%]" src="/img/profile.png" alt="" />
+        <div class="absolute left-0 top-[15%] w-[110px] h-[110px] p-[20px] bg-white rounded-[25px] md:top-[15%] md:w-[95px] md:h-[95px] md:p-[15px] md:rounded-[15px] col:top-[10%] col:w-[70px] col:h-[70px] col:p-[15px] col:rounded-[15px] floating-item" style="transform: translateX(-20px) translateY(9.99955px);">
+            <img class="rounded-[0px] max-w-[100%]" src="/img/ATHwBB.jpeg" alt="">
+        </div>
+    </div>
+
+    @*gradient*@
+    <div class="absolute top-0 left-0 -z-10">
+        <svg class=" fill-[#FF4155]" width="1038" height="938" viewBox="0 0 1038 938" fill="none">
+            <g opacity="0.5" filter="url(#filter0_f_39_4392)">
+                <circle cx="290.5" cy="282.5" r="247.5"></circle>
+            </g>
+            <defs>
+                <filter id="filter0_f_39_4392" x="-457" y="-465" width="1495" height="1495" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                    <feGaussianBlur stdDeviation="250" result="effect1_foregroundBlur_39_4392"></feGaussianBlur>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+    <div class="absolute top-[50%] left-[60%] transform -translate-x-1/2 -translate-y-1/2 -z-10">
+        <svg class="fill-[#FFE600]" width="1295" height="938" viewBox="0 0 1295 938" fill="none">
+            <g opacity="0.4" filter="url(#filter0_f_39_4393)">
+                <circle cx="647.5" cy="561.5" r="247.5"></circle>
+            </g>
+            <defs>
+                <filter id="filter0_f_39_4393" x="0" y="-86" width="1295" height="1295" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                    <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_39_4393"></feGaussianBlur>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+</div>
+
+@*bicycle imgs section*@
+<div class="section-wrap bg-[#191919] overflow-hidden z-50">
+    <div class="absolute left-0 top-[-70%] sm:top-[-40%] -z-10">
+        <svg class="fill-[#AD00FF]" width="995" height="1495" viewBox="0 0 995 1495" fill="none">
+            <g opacity="0.15" filter="url(#filter0_f_39_4268)">
+                <circle cx="247.5" cy="747.5" r="247.5" fill="#AD00FF"></circle>
+            </g>
+            <defs>
+                <filter id="filter0_f_39_4268" x="-500" y="0" width="1495" height="1495" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                    <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                    <feGaussianBlur stdDeviation="250" result="effect1_foregroundBlur_39_4267"></feGaussianBlur>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+
+    <div class="wraper sm:max-w-[540px] col:max-w[100%]">
+        <div class="max-w-[640px] mx-auto text-center text-white mb-[60px] md:mb-[40px]">
+            <h2 class="heading-font font-bold text-5xl md:text-[35px] sm:text-[22px] mb-[15px]">
+                Przykładowe rowery
+            </h2>
+            <p class="base-font text-lg font-normal">
+                Oto kilka przykładowych rowerów, które oferujemy w naszym serwisie.<br />Idealne do każdego typu aktywności.
+            </p>
+        </div>
+
+        <div class="tab-content" id="tabs-tabContentFill">
+            <div class="tab-pane" id="tabs-homeFill" role="tabpanel" aria-labelledby="tabs-home-tabFill">
+                <div class="mt-[65px]">
+                    <div class="w-[31%] lg:w-[30%] md:w-[46%] sm:w-full mx-[10px] sm:mx-0 inline-block bg-[#232221] border-2 border-[#373737] rounded-[12px]
+                                text-center px-[40px] lg:px-[20px] py-[50px] md:mb-[30px] group">
+                        <img class="select-none mb-[30px] rounded-[0.75rem] rounded-tl-[2.1rem] rounded-br-[3rem]" src="/img/r1.jpg" alt="r1" />
+                        <h2 class="font-bold font-base-font text-[26px] lg:text-[20px] leading-[31px] text-white mb-[8px] text-center">
+                            R3 Trn 3
+                        </h2>
+                        <p class="text-[16px] md:text-[14px] text-[#D8D8D8] my-6 md:my-4">
+                            8zł/h
+                        </p>
+                    </div>
+                    <div class="w-[31%] lg:w-[30%] md:w-[46%] sm:w-full mx-[10px] sm:mx-0 inline-block bg-[#232221] border-2 border-[#373737] rounded-[12px]
+                                text-center px-[40px] lg:px-[20px] py-[50px] md:mb-[30px] group">
+                        <img class="select-none mb-[30px] rounded-[0.75rem] rounded-tl-[2.1rem] rounded-br-[3rem]" src="/img/r2.jpg" alt="r2" />
+                        <h2 class="font-bold font-base-font text-[26px] lg:text-[20px] leading-[31px] text-white mb-[8px] text-center">
+                            R1 Cty 9
+                        </h2>
+                        <p class="text-[16px] md:text-[14px] text-[#D8D8D8] my-6 md:my-4">
+                            12zł/h
+                        </p>
+                    </div>
+                    <div class="w-[31%] lg:w-[30%] md:w-[46%] sm:w-full mx-[10px] sm:mx-0 inline-block bg-[#232221] border-2 border-[#373737] rounded-[12px]
+                                text-center px-[40px] lg:px-[20px] py-[50px] md:mb-[30px] group">
+                        <img class="select-none mb-[30px] rounded-[0.75rem] rounded-tl-[2.1rem] rounded-br-[3rem]" src="/img/r3.jpg" alt="r3" />
+                        <h2 class="font-bold font-base-font text-[26px] lg:text-[20px] leading-[31px] text-white mb-[8px] text-center">
+                            R2 Mnt 13
+                        </h2>
+                        <p class="text-[16px] md:text-[14px] text-[#D8D8D8] my-6 md:my-4">
+                            9,99zł/h
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

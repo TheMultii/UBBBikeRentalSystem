@@ -1,0 +1,109 @@
+﻿@{
+    string currentControllerPath = Context.GetRouteData().Values?["controller"]?.ToString() ?? "";
+    string currentRoutePath = Context.GetRouteData().Values?["action"]?.ToString() ?? "";
+    string currentIDPath = Context.GetRouteData().Values?["id"]?.ToString() ?? "";
+    
+    bool isPrivacy = currentControllerPath == "Home" && currentRoutePath == "Privacy";
+    List<string> headerForbiddenControllers = new() { "Home" };
+    Dictionary<string, string> headerTitle = new() {
+        { "Vehicle/Index", "Dostępne pojazdy" },
+        { "Vehicle/Edit", "Edytowanie pojazdu" },
+        { "Vehicle/Delete", "Usuwanie pojazdu" },
+        { "Vehicle/Create", "Dodawanie pojazdu" },
+        { "Vehicle/Details", "Informacje o pojeździe" },
+
+        { "ReservationPoint/Index", "Dostępne punkty wypożyczeń" },
+        { "ReservationPoint/Edit", "Edytowanie punkty wypożyczeń" },
+        { "ReservationPoint/Delete", "Usuwanie punkty wypożyczeń" },
+        { "ReservationPoint/Create", "Dodawanie punkty wypożyczeń" },
+        { "ReservationPoint/Details", "Informacje o punkcie wypożyczeń" },
+
+        { "Home/Privacy", "Polityka prywatności" }
+    };
+    string headerTitleString = headerTitle.ContainsKey(currentControllerPath + "/" + currentRoutePath) ? headerTitle[currentControllerPath + "/" + currentRoutePath] : "UBB Bike Rental System";
+}
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - UBB Bike Rental System</title>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-[#131313] text-white">
+    <header class="bg-transparent absolute left-0 top-0 w-full z-50 md:py-[20px] select-none">
+        <nav class="wraper">
+            <div class="flex items-center justify-between md:justify-center">
+                <div>
+                    <h1 class="text-white text-[29px] font-bold leading-[100px] mb-[10px] lg:mb-[10px] lg:leading-[75px] md:leading-[45px] col:leading-[35px] col:mb-[0px]">UBB-BRS</h1>
+                </div>
+                <ul class="md:hidden">
+                    <li class="relative inline-block group">
+                        <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                                before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
+                                @(currentControllerPath == "Home" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
+                           asp-controller="" asp-action="">
+                            Home
+                        </a>
+                    </li>
+                    <li class="relative inline-block">
+                        <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                                before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
+                                @(currentControllerPath == "Vehicle" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
+                           asp-controller="Vehicle" asp-action="">
+                            Pojazdy
+                        </a>
+                    </li>
+                    <li class="relative inline-block">
+                        <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                                before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
+                                @(currentControllerPath == "ReservationPoint" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
+                           asp-controller="ReservationPoint" asp-action="">
+                            Pkt. Wypożyczeń
+                        </a>
+                    </li>
+                </ul>
+                <div class="invisible md:hidden">
+                    <h1 class="text-white text-[29px] font-bold leading-[100px] mb-[10px] lg:mb-[10px] lg:leading-[75px] md:leading-[45px] col:leading-[35px] col:mb-[0px]">UBB-BRS</h1>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        @if (!headerForbiddenControllers.Contains(currentControllerPath) || isPrivacy) {
+            <section class="min-h-[350px] sm:min-h-[250px] relative flex justify-center flex-col z-30 bg-[url('https://v4.api.mganczarczyk.pl/v4/ras/moescape/redirect?safety')] bg-no-repeat bg-center bg-cover before:content-[''] before:w-full before:h-full before:bg-[#131313] before:z-[-1] before:select-none before:pointer-events-none before:absolute before:opacity-[.8]">
+                <div class="wraper">
+                    <div class="grid grid-rows-1 grid-cols-1 gap-4">
+                        <div class="text-center">
+                            <h2 class="text-[60px] text-white leading-[60px] mt-[-10px] mb-[20px] font-black sm:text-[30px] sm:leading-[35px] sm:mb-[10px]">@headerTitleString</h2>
+                            <ol class="pl-0 mb-0 text-center">
+                                <li class="inline-block text-white text-[20px] font-base-font md:text-[18px]">@currentControllerPath</li>
+                                <li class="inline-block text-white text-[20px] font-base-font md:text-[18px]"><span class="text-[16px] px-[5px] select-none">/</span>@currentRoutePath</li>
+                                @if (currentIDPath != "") {
+                                    <li class="inline-block text-white text-[20px] font-base-font md:text-[18px]"><span class="text-[16px] px-[5px] select-none">/</span>@currentIDPath</li>
+                                }
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="h-[1px] w-full bg-[#ffffff0d]"></div>
+        <div class="wraper border-t-1 border-[#ffffff0d]">
+            <p class="text-center text-white text-[14px] py-[20px]">
+                &copy; 2023 - 🤔 UBB Bike Rental System 🤔 - <a class="underline" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
+            </p>
+        </div>
+    </footer>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
