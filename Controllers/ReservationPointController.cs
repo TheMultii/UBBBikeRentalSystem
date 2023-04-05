@@ -8,6 +8,8 @@ namespace UBBBikeRentalSystem.Controllers {
     public class ReservationPointController: Controller, ICRUD<ReservationPointViewModel> {
         private readonly IRepository<ReservationPoint> _reservationPointRepository;
 
+        //merge into one helper class (creating model)
+
         public ReservationPointController(IRepository<ReservationPoint> db) {
             _reservationPointRepository = db;
         }

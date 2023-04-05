@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using UBBBikeRentalSystem.Converters;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
 using UBBBikeRentalSystem.ViewModels;
@@ -7,11 +7,13 @@ using UBBBikeRentalSystem.ViewModels;
 namespace UBBBikeRentalSystem.Controllers {
     public class VehicleController: Controller, ICRUD<VehicleDetailViewModel> {
         private readonly IRepository<Vehicle> _vehicleRepository;
-        private readonly IRepository<VehicleType> _vehicleTypeRepository;
+        private readonly IMapper _mapper;
 
-        public VehicleController(IRepository<Vehicle> db, IRepository<VehicleType> vehicleTypeRepository) {
+        //merge into one helper class (creating model)
+
+        public VehicleController(IRepository<Vehicle> db, IMapper mapper) {
             _vehicleRepository = db;
-            _vehicleTypeRepository = vehicleTypeRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -23,19 +25,7 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Create(VehicleDetailViewModel _model) {
             if (!ModelState.IsValid) return View(_model);
 
-            Vehicle vehicle = new() {
-                Name = _model.Name,
-                Model = _model.Model,
-                ImageUrl = _model.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleType(_model.VehicleType, _vehicleTypeRepository),
-                PricePerHour = _model.PricePerHour,
-                Description = _model.Description,
-                IsAvailable = true,
-                ManufactureDate = _model.ManufactureDate,
-                MaxSpeed = _model.MaxSpeed
-            };
-
-            _vehicleRepository.Add(vehicle);
+            _vehicleRepository.Add(_mapper.Map<Vehicle>(_model));
             return RedirectToAction("Index");
         }
 
@@ -44,18 +34,7 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                Description = vehicle?.Description ?? "N/A",
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(_mapper.Map<VehicleDetailViewModel>(vehicle));
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -69,18 +48,7 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                Description = vehicle?.Description ?? "N/A",
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(_mapper.Map<VehicleDetailViewModel>(vehicle));
         }
 
         [HttpGet]
@@ -88,38 +56,16 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                Description = vehicle?.Description ?? "N/A",
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(_mapper.Map<VehicleDetailViewModel>(vehicle));
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(VehicleDetailViewModel _model) {
             if (!ModelState.IsValid) return View(_model);
 
-            Vehicle vehicle = new() {
-                ID = _model.ID,
-                Name = _model.Name,
-                Model = _model.Model,
-                ImageUrl = _model.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleType(_model.VehicleType, _vehicleTypeRepository),
-                PricePerHour = _model.PricePerHour,
-                IsAvailable = true,
-                Description = _model.Description,
-                ManufactureDate = _model.ManufactureDate,
-                MaxSpeed = _model.MaxSpeed
-            };
+            var x = _mapper.Map<Vehicle>(_model);
 
-            _vehicleRepository.Update(vehicle);
+            _vehicleRepository.Update(x);
             return RedirectToAction("Index");
         }
 
@@ -127,14 +73,7 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Index() {
             List<VehicleItemViewModel> vehicles = new();
             foreach (var vehicle in _vehicleRepository.GetAll()) {
-                vehicles.Add(new VehicleItemViewModel() {
-                    ID = vehicle.ID,
-                    Name = vehicle.Name,
-                    Model = vehicle.Model,
-                    ImageUrl = vehicle.ImageUrl,
-                    VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle.VehicleType),
-                    PricePerHour = vehicle.PricePerHour
-                });
+                vehicles.Add(_mapper.Map<VehicleItemViewModel>(vehicle));
             }
 
             return View(vehicles);
