@@ -4,56 +4,81 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="grid grid-cols-12 mb-[50px]">
+    <div class="col-span-1"></div>
+    <div class="col-span-10 md:col-span-12">
+        <div class="max-w-[440px] mx-auto text-center my-[36px]">
+            <h2 class="text-[35px] col:text-[25px] text-white font-base-font font-bold mb-[20px]">Edycja @Model.Name</h2>
+            <p class="text-[#D8D8D8] text-[16px] leading-[22px]">
+                Wypełnij formularz, by zedytować punkt wypożyczeń.
+            </p>
+        </div>
+        <div class="p-[50px] bg-[#222121] mb-[-125px] relative z-10 shadow-[0_8px_17px_0_rgba(0,0,0,20%),0_6px_20px_0_rgba(0,0,0,19%)] sm:p-7 sm:pt-[50px]">
+            <form asp-action="Edit" class="pt-[10px] mx-[-15px] overflow-hidden" novalidate="novalidate">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Name)
+                    </span>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="name" id="name" asp-for="Name" value="@Model.Name">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Address)
+                    </span>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="address" id="address" asp-for="Address" value="@Model.Address">
+                </div>
 
-<h4>ReservationPointViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostalCode" class="control-label"></label>
-                <input asp-for="PostalCode" class="form-control" />
-                <span asp-validation-for="PostalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Latitude" class="control-label"></label>
-                <input asp-for="Latitude" class="form-control" />
-                <span asp-validation-for="Latitude" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Longitude" class="control-label"></label>
-                <input asp-for="Longitude" class="form-control" />
-                <span asp-validation-for="Longitude" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.City)
+                    </span>
+                    <span asp-validation-for="City" class="text-danger"></span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="city" id="city" asp-for="City" value="@Model.City">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.PostalCode)
+                    </span>
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="postalcode" id="postalcode" asp-for="PostalCode" value="@Model.PostalCode">
+                </div>
+
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Longitude)
+                    </span>
+                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="longitude" id="longitude" asp-for="Longitude" value="@Model.Longitude">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Latitude)
+                    </span>
+                    <span asp-validation-for="Latitude" class="text-danger"></span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="latitude" id="latitude" asp-for="Latitude" value="@Model.Latitude">
+                </div>
+
+                <div class="text-center w-full mb-[10px]">
+                    <input type="submit" value="Edytuj" class="cursor-pointer bg-[#222121] text-[#fff] inline-block py-[12px] px-[22px] border border-[#59C378] rounded-[55px] capitalize transition-all hover:bg-[#59C378] hover:border-transparent" />
+                </div>
+
+                <div>
+                    <p>
+                        <a asp-action="Index">👈 Wróć do listy</a>
+                    </p>
+                </div>
+            </form>
+        </div>
     </div>
+    <div class="col-span-1"></div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<p class="invisible mt-[150px]">&nbsp;</p>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -120,8 +120,31 @@ namespace UBBBikeRentalSystem {
                     dbContext.Users.Add(new() { ID = i, Name="ASD" });
                 }
                 dbContext.SaveChanges();
-            }
 
+                List<ReservationPoint> _reservationPoints = new() {
+                    new() {
+                        ID = 1,
+                        Name = "A",
+                        Address = "Ulicaa",
+                        City = "BB",
+                        PostalCode = "12-345",
+                        Longitude = 12.133,
+                        Latitude = 13.122
+                    },
+                    new() {
+                        ID = 2,
+                        Name = "B",
+                        Address = "ctyvb",
+                        City = "CC",
+                        PostalCode = "54-321",
+                        Longitude = 1.111,
+                        Latitude = 2.222
+                    }
+                };
+
+                dbContext.ReservationPoints.AddRange(_reservationPoints);
+                dbContext.SaveChanges();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment()) {

@@ -4,54 +4,82 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<div class="grid grid-cols-12 mb-[50px]">
+    <div class="col-span-1"></div>
+    <div class="col-span-10 md:col-span-12">
+        <div class="max-w-[440px] mx-auto text-center my-[36px]">
+            <h2 class="text-[35px] col:text-[25px] text-white font-base-font font-bold mb-[20px]">Usuwanie @Model.Name</h2>
+            <p class="text-[#D8D8D8] text-[16px] leading-[22px]">
+                Sprawdź czy to nie jest pomyłka, ponieważ usunięcie punkty wypożyczeń jest nieodwracalne.
+            </p>
+        </div>
+        <div class="p-[50px] bg-[#222121] mb-[-125px] relative z-10 shadow-[0_8px_17px_0_rgba(0,0,0,20%),0_6px_20px_0_rgba(0,0,0,19%)] sm:p-7 sm:pt-[50px]">
+            <form asp-action="Delete" class="pt-[10px] mx-[-15px] overflow-hidden" novalidate="novalidate">
+                <input type="hidden" asp-for="ID" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Name)
+                    </span>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="name" id="name" asp-for="Name" value="@Model.Name">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Address)
+                    </span>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="address" id="address" asp-for="Address" value="@Model.Address">
+                </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ReservationPointViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.City)
+                    </span>
+                    <span asp-validation-for="City" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="city" id="city" asp-for="City" value="@Model.City">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.PostalCode)
+                    </span>
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="postalcode" id="postalcode" asp-for="PostalCode" value="@Model.PostalCode">
+                </div>
+
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Longitude)
+                    </span>
+                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="longitude" id="longitude" asp-for="Longitude" value="@Model.Longitude">
+                </div>
+                <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
+                    <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                        @Html.DisplayNameFor(x => x.Latitude)
+                    </span>
+                    <span asp-validation-for="Latitude" class="text-danger"></span>
+                    <input disabled class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#DD584F] focus:bg-transparent outline-none" name="latitude" id="latitude" asp-for="Latitude" value="@Model.Latitude">
+                </div>
+
+                <div class="text-center w-full mb-[10px]">
+                    <input type="submit" value="Usuń" class="cursor-pointer bg-[#222121] text-[#fff] inline-block py-[12px] px-[22px] border border-[#DD584F] rounded-[55px] capitalize transition-all hover:bg-[#DD584F] hover:border-transparent" />
+                </div>
+
+                <div>
+                    <p>
+                        <a asp-action="Index">👈 Wróć do listy</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-span-1"></div>
 </div>
+<p class="invisible mt-[150px]">&nbsp;</p>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

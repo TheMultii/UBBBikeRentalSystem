@@ -1,65 +1,108 @@
 ﻿@model IEnumerable<UBBBikeRentalSystem.ViewModels.ReservationPointViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista punktów wypożyczeń";
 }
 
-<h1>Index</h1>
+<section class="wraper mx-auto">
+    <div class="flex flex-col my-6">
+        <div class="overflow-x-auto">
+            <div class="inline-block min-w-full align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-[#2C2C2C]">
+                            <tr>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    ID
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Name
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Adres
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Miasto
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                   Kod pocztowy
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Szer. geogr.
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Dł. geogr.
+                                </th>
+                                <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal text-gray-500 dark:text-gray-400">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-[#303030]">
+                            @foreach (var item in Model) {
+                                <tr>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.Name)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.Address)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.City)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.PostalCode)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.Longitude)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        <div>
+                                            <h2 class="font-medium text-gray-800 dark:text-white">
+                                                @Html.DisplayFor(modelItem => item.Latitude)
+                                            </h2>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                        @Html.ActionLink("Edytuj", "Edit", new { id=item.ID }) |
+                                        @Html.ActionLink("Szczegóły", "Details", new { id=item.ID }) |
+                                        @Html.ActionLink("Usuń", "Delete", new { id=item.ID })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <a class="text-center mt-[8px] block" asp-action="Create" asp-controller="ReservationPoint">Dodaj nowy</a>
+            </div>
+        </div>
+    </div>
+</section>

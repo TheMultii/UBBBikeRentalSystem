@@ -1,54 +1,127 @@
 ﻿@model UBBBikeRentalSystem.ViewModels.ReservationPointViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Informacje o punkcie wypożyczeń";
 }
 
-<h1>Details</h1>
+<div class="wraper">
+    <div class="grid grid-cols-12">
+        <div class="col-span-1"></div>
+        <div class="col-span-10 md:col-span-12">
+            <div class="py-[50px] sm:py-[30px]">
+                <div class="grid grid-cols-12 gap-3">
+                    <div class="col-span-12 md:mb-7">
+                        <div class="flow-root">
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                ID
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.ID)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
 
-<div>
-    <h4>ReservationPointViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostalCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Name
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Name)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Adress
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Address)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Miasto
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.City)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Kod pocztowy
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.PostalCode)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Szer. geograficzna
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Longitude)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Dł. geograficzna
+                                            </p>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                @Html.DisplayFor(model => model.Latitude)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Edit" asp-route-id="@Model.ID">
+                                                Edytuj
+                                            </a> | 
+                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Index">
+                                                Powrót do listy
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-1"></div>
+    </div>
 </div>

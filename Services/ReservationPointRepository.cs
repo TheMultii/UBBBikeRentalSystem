@@ -1,4 +1,5 @@
-﻿using UBBBikeRentalSystem.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
@@ -10,31 +11,44 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Add(ReservationPoint entity) {
-            throw new NotImplementedException();
+            entity.ID = _db.ReservationPoints.Max(x => x.ID) + 1;
+            _db.ReservationPoints.Add(entity);
+            _db.SaveChanges();
         }
 
         public void AddRange(IEnumerable<ReservationPoint> entities) {
-            throw new NotImplementedException();
+            int currentID = _db.ReservationPoints.Max(x => x.ID) + 1;
+            foreach (ReservationPoint entity in entities) {
+                entity.ID = currentID;
+                _db.ReservationPoints.Add(entity);
+                currentID++;
+            }
+            _db.SaveChanges();
         }
 
         public void Delete(int id) {
-            throw new NotImplementedException();
+            ReservationPoint? entity = _db.ReservationPoints.FirstOrDefault(x => x.ID == id) ?? throw new Exception("Brak takiego punktu w DB");
+            _db.ReservationPoints.Remove(entity);
+            _db.SaveChanges();
         }
 
         public ReservationPoint? Get(int id) {
-            throw new NotImplementedException();
+            return _db.ReservationPoints.FirstOrDefault(x => x.ID == id);
         }
 
         public List<ReservationPoint> GetAll() {
-            throw new NotImplementedException();
+            return _db.ReservationPoints.OrderBy(r => r.ID).ToList();
         }
 
         public IQueryable<ReservationPoint> RawQueryable() {
-            throw new NotImplementedException();
+            return _db.ReservationPoints.AsQueryable();
         }
 
         public void Update(ReservationPoint entity) {
-            throw new NotImplementedException();
+            var _oldReservationPoint = _db.ReservationPoints.FirstOrDefault(x => x.ID == entity.ID) ?? throw new Exception("Brak takiego punktu w DB");
+            _db.Entry(_oldReservationPoint).State = EntityState.Detached;
+            _db.ReservationPoints.Update(entity);
+            _db.SaveChanges();
         }
     }
 }

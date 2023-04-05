@@ -6,6 +6,8 @@
     bool isPrivacy = currentControllerPath == "Home" && currentRoutePath == "Privacy";
     List<string> headerForbiddenControllers = new() { "Home" };
     Dictionary<string, string> headerTitle = new() {
+        { "Home/Privacy", "Polityka prywatności" },
+
         { "Vehicle/Index", "Dostępne pojazdy" },
         { "Vehicle/Edit", "Edytowanie pojazdu" },
         { "Vehicle/Delete", "Usuwanie pojazdu" },
@@ -13,12 +15,10 @@
         { "Vehicle/Details", "Informacje o pojeździe" },
 
         { "ReservationPoint/Index", "Dostępne punkty wypożyczeń" },
-        { "ReservationPoint/Edit", "Edytowanie punkty wypożyczeń" },
-        { "ReservationPoint/Delete", "Usuwanie punkty wypożyczeń" },
-        { "ReservationPoint/Create", "Dodawanie punkty wypożyczeń" },
+        { "ReservationPoint/Edit", "Edytowanie punktu wypożyczeń" },
+        { "ReservationPoint/Delete", "Usuwanie punktu wypożyczeń" },
+        { "ReservationPoint/Create", "Dodawanie punktu wypożyczeń" },
         { "ReservationPoint/Details", "Informacje o punkcie wypożyczeń" },
-
-        { "Home/Privacy", "Polityka prywatności" }
     };
     string headerTitleString = headerTitle.ContainsKey(currentControllerPath + "/" + currentRoutePath) ? headerTitle[currentControllerPath + "/" + currentRoutePath] : "UBB Bike Rental System";
 }

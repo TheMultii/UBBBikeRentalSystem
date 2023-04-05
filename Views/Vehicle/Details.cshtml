@@ -136,7 +136,9 @@
                                 <li class="py-3 sm:py-4">
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
-                                            @*@Html.ActionLink("Edit", "Edit", new {  id = Model.ID })*@
+                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Edit" asp-route-id="@Model.ID">
+                                                Edytuj
+                                            </a>
                                             <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Index">
                                                 Powrót do listy
                                             </a>
