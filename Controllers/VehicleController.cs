@@ -21,21 +21,12 @@ namespace UBBBikeRentalSystem.Controllers {
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(VehicleDetailViewModel _model) {
+            // sprawdzanie, czy model przekazany do akcji zawiera poprawne dane (czy przechodzi walidację).
             if (!ModelState.IsValid) return View(_model);
 
-            Vehicle vehicle = new() {
-                Name = _model.Name,
-                Model = _model.Model,
-                ImageUrl = _model.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleType(_model.VehicleType, _vehicleTypeRepository),
-                PricePerHour = _model.PricePerHour,
-                Description = _model.Description,
-                IsAvailable = true,
-                ManufactureDate = _model.ManufactureDate,
-                MaxSpeed = _model.MaxSpeed
-            };
-
-            _vehicleRepository.Add(vehicle);
+            _vehicleRepository.Add(
+                VehicleModelToViewModelConverter.ToVehicle(_model, _vehicleTypeRepository)
+            );
             return RedirectToAction("Index");
         }
 
@@ -44,18 +35,9 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                Description = vehicle?.Description ?? "N/A",
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(
+                VehicleModelToViewModelConverter.ToVehicleDetailViewModel(vehicle)
+            );
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -69,18 +51,9 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                Description = vehicle?.Description ?? "N/A",
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(
+                VehicleModelToViewModelConverter.ToVehicleDetailViewModel(vehicle)
+            );
         }
 
         [HttpGet]
@@ -88,38 +61,18 @@ namespace UBBBikeRentalSystem.Controllers {
             Vehicle? vehicle = _vehicleRepository.Get(id);
             if (vehicle is null) return RedirectToAction("Index");
 
-            return View(new VehicleDetailViewModel() {
-                ID = vehicle.ID,
-                Name = vehicle?.Name ?? "N/A",
-                Model = vehicle?.Model,
-                ImageUrl = vehicle?.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle?.VehicleType),
-                Description = vehicle?.Description ?? "N/A",
-                PricePerHour = vehicle?.PricePerHour ?? 0,
-                IsAvailable = vehicle?.IsAvailable ?? false,
-                ManufactureDate = vehicle?.ManufactureDate ?? DateTime.MinValue,
-                MaxSpeed = vehicle?.MaxSpeed ?? 0
-            });
+            return View(
+                VehicleModelToViewModelConverter.ToVehicleDetailViewModel(vehicle)
+            );
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(VehicleDetailViewModel _model) {
             if (!ModelState.IsValid) return View(_model);
 
-            Vehicle vehicle = new() {
-                ID = _model.ID,
-                Name = _model.Name,
-                Model = _model.Model,
-                ImageUrl = _model.ImageUrl,
-                VehicleType = VehicleTypeConverter.ToVehicleType(_model.VehicleType, _vehicleTypeRepository),
-                PricePerHour = _model.PricePerHour,
-                IsAvailable = true,
-                Description = _model.Description,
-                ManufactureDate = _model.ManufactureDate,
-                MaxSpeed = _model.MaxSpeed
-            };
-
-            _vehicleRepository.Update(vehicle);
+            _vehicleRepository.Update(
+                VehicleModelToViewModelConverter.ToVehicle(_model, _vehicleTypeRepository)
+            );
             return RedirectToAction("Index");
         }
 
@@ -127,14 +80,9 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Index() {
             List<VehicleItemViewModel> vehicles = new();
             foreach (var vehicle in _vehicleRepository.GetAll()) {
-                vehicles.Add(new VehicleItemViewModel() {
-                    ID = vehicle.ID,
-                    Name = vehicle.Name,
-                    Model = vehicle.Model,
-                    ImageUrl = vehicle.ImageUrl,
-                    VehicleType = VehicleTypeConverter.ToVehicleTypeEnum(vehicle.VehicleType),
-                    PricePerHour = vehicle.PricePerHour
-                });
+                vehicles.Add(
+                    VehicleModelToViewModelConverter.ToVehicleItemViewModel(vehicle)
+                );
             }
 
             return View(vehicles);
