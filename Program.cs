@@ -79,7 +79,7 @@ namespace UBBBikeRentalSystem {
                     }
                 };
 
-                List<VehicleType> vehicleTypes = new List<VehicleType>() {
+                List<VehicleType> vehicleTypes = new() {
                     new() {
                         ID = 1,
                         Name = "Bike",

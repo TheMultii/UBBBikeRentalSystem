@@ -9,8 +9,6 @@ namespace UBBBikeRentalSystem.Controllers {
         private readonly IRepository<Vehicle> _vehicleRepository;
         private readonly IMapper _mapper;
 
-        //merge into one helper class (creating model)
-
         public VehicleController(IRepository<Vehicle> db, IMapper mapper) {
             _vehicleRepository = db;
             _mapper = mapper;
@@ -23,6 +21,7 @@ namespace UBBBikeRentalSystem.Controllers {
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(VehicleDetailViewModel _model) {
+            // sprawdzanie, czy model przekazany do akcji zawiera poprawne dane (czy przechodzi walidację).
             if (!ModelState.IsValid) return View(_model);
 
             _vehicleRepository.Add(_mapper.Map<Vehicle>(_model));
@@ -62,10 +61,8 @@ namespace UBBBikeRentalSystem.Controllers {
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(VehicleDetailViewModel _model) {
             if (!ModelState.IsValid) return View(_model);
-
-            var x = _mapper.Map<Vehicle>(_model);
-
-            _vehicleRepository.Update(x);
+			
+            _vehicleRepository.Update(_mapper.Map<Vehicle>(_model));
             return RedirectToAction("Index");
         }
 
