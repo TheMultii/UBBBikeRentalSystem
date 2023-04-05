@@ -20,7 +20,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                ID
+                                                @Html.DisplayNameFor(model => model.ID)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.ID)
@@ -33,7 +33,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Name
+                                                @Html.DisplayNameFor(model => model.Name)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.Name)
@@ -46,7 +46,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Model
+                                                @Html.DisplayNameFor(model => model.Model)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.Model)
@@ -59,7 +59,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                               Typ pojazdu
+                                                @Html.DisplayNameFor(model => model.VehicleType)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.VehicleType)
@@ -72,7 +72,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Opis
+                                                @Html.DisplayNameFor(model => model.Description)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.Description)
@@ -85,7 +85,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Dostępność
+                                                @Html.DisplayNameFor(model => model.IsAvailable)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @(Model.IsAvailable ? "Dostępny" : "Niedostępny")
@@ -98,7 +98,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Data produkcji
+                                                @Html.DisplayNameFor(model => model.ManufactureDate)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.ManufactureDate)
@@ -111,7 +111,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Maksymalna prędkość
+                                                @Html.DisplayNameFor(model => model.MaxSpeed)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.MaxSpeed)
@@ -124,7 +124,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
                                             <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Cena/godzina
+                                                @Html.DisplayNameFor(model => model.PricePerHour)
                                             </p>
                                             <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 @Html.DisplayFor(model => model.PricePerHour)

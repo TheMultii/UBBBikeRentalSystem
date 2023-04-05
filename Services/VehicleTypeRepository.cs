@@ -30,7 +30,6 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Add(VehicleType vehicle) {
-            //modify vehicle ID
             vehicle.ID = _db.VehicleTypes.OrderBy(r => r.ID).First().ID + 1;
             _db.VehicleTypes.Add(vehicle);
             _db.SaveChanges();
