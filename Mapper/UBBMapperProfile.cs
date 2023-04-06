@@ -12,24 +12,24 @@ namespace UBBBikeRentalSystem.Mapper {
                     dest => dest.VehicleType,
                     opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleType(src.VehicleType, db))
                 );
-            CreateMap<VehicleItemViewModel, Vehicle>()
-                .ForMember(
-                    dest => dest.VehicleType,
-                    opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleType(src.VehicleType, db))
-                );
-            CreateMap<ReservationPointViewModel, ReservationPoint>();
-
             CreateMap<Vehicle, VehicleDetailViewModel>()
                 .ForMember(
                     dest => dest.VehicleType,
                     opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleTypeEnum(src.VehicleType))
+                );
+
+            CreateMap<VehicleItemViewModel, Vehicle>()
+                .ForMember(
+                    dest => dest.VehicleType,
+                    opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleType(src.VehicleType, db))
                 );
             CreateMap<Vehicle, VehicleItemViewModel>()
                 .ForMember(
                     dest => dest.VehicleType,
                     opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleTypeEnum(src.VehicleType))
                 );
-            CreateMap<ReservationPoint, ReservationPointViewModel>();
+				
+			CreateMap<ReservationPoint, ReservationPointViewModel>().ReverseMap();
         }
         public UBBMapperProfile() : this(new UBBBikeRentalSystemDatabase()) { }
     }
