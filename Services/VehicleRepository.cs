@@ -15,7 +15,7 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public Vehicle? Get(int id) {
-            return _db.Vehicles.Include(r => r.VehicleType).OrderBy(r => r.ID).SingleOrDefault(r => r.ID == id);
+            return _db.Vehicles.Include(r => r.VehicleType).SingleOrDefault(r => r.ID == id);
         }
 
         public void Delete(int id) {
