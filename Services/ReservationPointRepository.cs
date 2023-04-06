@@ -27,13 +27,13 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Delete(int id) {
-            ReservationPoint? entity = _db.ReservationPoints.FirstOrDefault(x => x.ID == id) ?? throw new Exception("Brak takiego punktu w DB");
+            ReservationPoint? entity = _db.ReservationPoints.SingleOrDefault(x => x.ID == id) ?? throw new Exception("Brak takiego punktu w DB");
             _db.ReservationPoints.Remove(entity);
             _db.SaveChanges();
         }
 
         public ReservationPoint? Get(int id) {
-            return _db.ReservationPoints.FirstOrDefault(x => x.ID == id);
+            return _db.ReservationPoints.SingleOrDefault(x => x.ID == id);
         }
 
         public List<ReservationPoint> GetAll() {
