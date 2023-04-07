@@ -26,8 +26,7 @@ namespace UBBBikeRentalSystem.Services {
 
         public void Update(Vehicle vehicle) {
             var _oldVehicle = Get(vehicle.ID) ?? throw new Exception("Brak takiego pojazdu w DB");
-            _db.Entry(_oldVehicle).State = EntityState.Detached;
-            _db.Vehicles.Update(vehicle);
+            _db.Entry(_oldVehicle).CurrentValues.SetValues(vehicle);
             _db.SaveChanges();
         }
 

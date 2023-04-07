@@ -15,50 +15,61 @@
         </div>
         <div class="p-[50px] bg-[#222121] mb-[-125px] relative z-10 shadow-[0_8px_17px_0_rgba(0,0,0,20%),0_6px_20px_0_rgba(0,0,0,19%)] sm:p-7 sm:pt-[50px]">
             <form asp-action="Edit" class="pt-[10px] mx-[-15px] overflow-hidden" novalidate="novalidate">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.Name)
                     </span>
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="name" id="name" asp-for="Name" value="@Model.Name">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="Name"></span>
+                    </span>
+                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="name" asp-for="Name" value="@Model.Name">
                 </div>
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.Address)
                     </span>
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="address" id="address" asp-for="Address" value="@Model.Address">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="Address"></span>
+                    </span>
+                    <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="address" asp-for="Address" value="@Model.Address">
                 </div>
 
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.City)
                     </span>
-                    <span asp-validation-for="City" class="text-danger"></span>
-                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="city" id="city" asp-for="City" value="@Model.City">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="City"></span>
+                    </span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="city" asp-for="City" value="@Model.City">
                 </div>
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.PostalCode)
                     </span>
-                    <span asp-validation-for="PostalCode" class="text-danger"></span>
-                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="postalcode" id="postalcode" asp-for="PostalCode" value="@Model.PostalCode">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="PostalCode"></span>
+                    </span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="postalcode" asp-for="PostalCode" value="@Model.PostalCode">
                 </div>
 
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.Longitude)
                     </span>
-                    <span asp-validation-for="Longitude" class="text-danger"></span>
-                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="longitude" id="longitude" asp-for="Longitude" value="@Model.Longitude">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="Longitude"></span>
+                    </span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="longitude" asp-for="Longitude" value="@Model.Longitude">
                 </div>
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.Latitude)
                     </span>
-                    <span asp-validation-for="Latitude" class="text-danger"></span>
-                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" name="latitude" id="latitude" asp-for="Latitude" value="@Model.Latitude">
+                    <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                        <span asp-validation-for="Latitude"></span>
+                    </span>
+                    <input class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" id="latitude" asp-for="Latitude" value="@Model.Latitude">
                 </div>
 
                 <div class="text-center w-full mb-[10px]">

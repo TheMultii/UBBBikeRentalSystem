@@ -24,6 +24,6 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Delete(int id);
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Delete(T vehicle);
+        public IActionResult Delete(T _model);
     }
 }

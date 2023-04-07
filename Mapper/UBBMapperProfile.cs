@@ -30,7 +30,10 @@ namespace UBBBikeRentalSystem.Mapper {
                 );
 				
 			CreateMap<ReservationPoint, ReservationPointViewModel>().ReverseMap();
+
+            CreateMap<Reservation, ReservationViewModel>().ReverseMap();
         }
+
         public UBBMapperProfile() : this(new UBBBikeRentalSystemDatabase()) { }
     }
 }

@@ -23,15 +23,15 @@ namespace UBBBikeRentalSystem.Services {
             _db.SaveChanges();
         }
 
-        public void Update(VehicleType vehicle) {
-            if(Get(vehicle.ID) is null) throw new Exception("Brak takiego typu pojazdu w DB");
-            _db.VehicleTypes.Update(vehicle);
+        public void Update(VehicleType vehicleType) {
+            var _oldVehicleType = Get(vehicleType.ID) ?? throw new Exception("Brak takiego typu pojazdu w DB");
+            _db.Entry(_oldVehicleType).CurrentValues.SetValues(vehicleType);
             _db.SaveChanges();
         }
 
-        public void Add(VehicleType vehicle) {
-            vehicle.ID = _db.VehicleTypes.OrderBy(r => r.ID).First().ID + 1;
-            _db.VehicleTypes.Add(vehicle);
+        public void Add(VehicleType vehicleType) {
+            vehicleType.ID = _db.VehicleTypes.OrderBy(r => r.ID).First().ID + 1;
+            _db.VehicleTypes.Add(vehicleType);
             _db.SaveChanges();
         }
 

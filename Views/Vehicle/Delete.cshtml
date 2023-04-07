@@ -16,7 +16,6 @@
         <div class="p-[50px] bg-[#222121] mb-[-125px] relative z-10 shadow-[0_8px_17px_0_rgba(0,0,0,20%),0_6px_20px_0_rgba(0,0,0,19%)] sm:p-7 sm:pt-[50px]">
             <form asp-action="Delete" class="pt-[10px] mx-[-15px] overflow-hidden" novalidate="novalidate">
                 <input type="hidden" asp-for="ID" />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="relative w-[calc(50%-30px)] float-left mx-[15px] mb-[25px] col:float-none col:w-[calc(100%-25px)]">
                     <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
                         @Html.DisplayNameFor(x => x.Name)

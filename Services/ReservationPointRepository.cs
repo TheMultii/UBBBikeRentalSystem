@@ -46,8 +46,7 @@ namespace UBBBikeRentalSystem.Services {
 
         public void Update(ReservationPoint entity) {
             var _oldReservationPoint = _db.ReservationPoints.SingleOrDefault(x => x.ID == entity.ID) ?? throw new Exception("Brak takiego punktu w DB");
-            _db.Entry(_oldReservationPoint).State = EntityState.Detached;
-            _db.ReservationPoints.Update(entity);
+            _db.Entry(_oldReservationPoint).CurrentValues.SetValues(entity);
             _db.SaveChanges();
         }
     }

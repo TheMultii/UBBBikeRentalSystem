@@ -1,7 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using System.ComponentModel.DataAnnotations;
 using UBBBikeRentalSystem.Converters;
 using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
+using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem {
@@ -11,9 +15,20 @@ namespace UBBBikeRentalSystem {
 
             // Register the database context.
             builder.Services.AddDbContext<UBBBikeRentalSystemDatabase>();
-            builder.Services.AddScoped<IRepository<Vehicle>, VehicleRepository>();
-            builder.Services.AddScoped<IRepository<VehicleType>, VehicleTypeRepository>();
             builder.Services.AddScoped<IRepository<ReservationPoint>, ReservationPointRepository>();
+            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
+            builder.Services.AddScoped<IRepository<User>, UserRepository>();
+            builder.Services.AddScoped<IRepository<VehicleType>, VehicleTypeRepository>();
+            builder.Services.AddScoped<IRepository<Vehicle>, VehicleRepository>();
+
+            // Add FluentValidation services to the container.
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
+            builder.Services.AddValidatorsFromAssemblyContaining<ReservationPointValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<ReservationValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<VehicleTypeValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<VehicleValidator>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -23,8 +38,6 @@ namespace UBBBikeRentalSystem {
 
             // Get a reference to the database context
             using (var serviceScope = app.Services.CreateScope()) {
-                //add here sample
-
                 var dbContext = serviceScope.ServiceProvider.GetService<UBBBikeRentalSystemDatabase>();
                 if (dbContext is null) return;
 
@@ -118,7 +131,7 @@ namespace UBBBikeRentalSystem {
                 dbContext.SaveChanges();
 
                 for (int i = 1; i <= 10; i++) {
-                    dbContext.Users.Add(new() { ID = i, Name="ASD" });
+                    dbContext.Users.Add(new() { ID = i, Name=i.ToString() });
                 }
                 dbContext.SaveChanges();
 
