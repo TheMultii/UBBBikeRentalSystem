@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
@@ -24,10 +25,14 @@ namespace UBBBikeRentalSystem.Controllers {
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(VehicleDetailViewModel _model) {
-            // sprawdzanie, czy model przekazany do akcji zawiera poprawne dane (czy przechodzi walidację).
-            if (!ModelState.IsValid) return View(_model);
+            if (!ModelState.IsValid) return BadRequest(ModelState); //check for viewmodel validation
+            Vehicle vehicle = _mapper.Map<Vehicle>(_model);
+            var result = validator.Validate(vehicle);
+            if (!result.IsValid) { //check for database model validation
+                return BadRequest(result.Errors);
+            }
 
-            _vehicleRepository.Add(_mapper.Map<Vehicle>(_model));
+            _vehicleRepository.Add(vehicle);
             return RedirectToAction("Index");
         }
 
@@ -63,9 +68,14 @@ namespace UBBBikeRentalSystem.Controllers {
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(VehicleDetailViewModel _model) {
-            if (!ModelState.IsValid) return View(_model);
-			
-            _vehicleRepository.Update(_mapper.Map<Vehicle>(_model));
+            if (!ModelState.IsValid) return BadRequest(ModelState); //check for viewmodel validation
+            Vehicle vehicle = _mapper.Map<Vehicle>(_model);
+            var result = validator.Validate(vehicle);
+            if (!result.IsValid) { //check for database model validation
+                return BadRequest(result.Errors);
+            }
+
+            _vehicleRepository.Update(vehicle);
             return RedirectToAction("Index");
         }
 
