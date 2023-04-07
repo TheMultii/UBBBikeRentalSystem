@@ -2,6 +2,7 @@
 
 namespace UBBBikeRentalSystem.ViewModels {
     public abstract class VehicleBase {
+        [Required]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Pole Nazwa jest wymagane.")]

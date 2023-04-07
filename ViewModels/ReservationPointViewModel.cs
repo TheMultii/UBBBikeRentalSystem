@@ -2,6 +2,7 @@
 
 namespace UBBBikeRentalSystem.ViewModels {
     public class ReservationPointViewModel {
+        [Required]
         public int ID { get; set; }
         
         [Required(ErrorMessage = "Nazwa jest wymagana")]

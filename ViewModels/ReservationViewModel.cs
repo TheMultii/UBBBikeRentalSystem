@@ -3,6 +3,7 @@ using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.ViewModels {
     public class ReservationViewModel {
+        [Required]
         public int ID { get; set; }
 
         [Display(Name = "Pojazd")]
