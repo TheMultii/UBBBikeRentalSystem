@@ -1,4 +1,5 @@
-﻿using UBBBikeRentalSystem.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
@@ -9,32 +10,44 @@ namespace UBBBikeRentalSystem.Services {
             _db = db;
         }
 
-        public void Add(User entity) {
-            throw new NotImplementedException();
+        public void Add(User user) {
+            user.ID = _db.Users.Max(r => r.ID) + 1;
+            _db.Users.Add(user);
+            _db.SaveChanges();
         }
 
-        public void AddRange(IEnumerable<User> entities) {
-            throw new NotImplementedException();
+        public void AddRange(IEnumerable<User> users) {
+            int currentID = _db.Users.Max(r => r.ID) + 1;
+            foreach (var _user in users) {
+                _user.ID = currentID;
+                _db.Users.Add(_user);
+                _db.SaveChanges();
+                currentID++;
+            }
         }
 
         public void Delete(int id) {
-            throw new NotImplementedException();
+            var _delete = Get(id) ?? throw new Exception("Brak takiego użytkownika w DB");
+            _db.Users.Remove(_delete);
+            _db.SaveChanges();
         }
 
         public User? Get(int id) {
-            throw new NotImplementedException();
+            return _db.Users.SingleOrDefault(r => r.ID == id);
         }
 
         public List<User> GetAll() {
-            throw new NotImplementedException();
+            return _db.Users.OrderBy(r => r.ID).ToList();
         }
 
         public IQueryable<User> RawQueryable() {
-            throw new NotImplementedException();
+            return _db.Users.AsQueryable();
         }
 
-        public void Update(User entity) {
-            throw new NotImplementedException();
+        public void Update(User user) {
+            var _oldVehicle = Get(user.ID) ?? throw new Exception("Brak takiego użytkownika w DB");
+            _db.Entry(_oldVehicle).CurrentValues.SetValues(user);
+            _db.SaveChanges();
         }
     }
 }

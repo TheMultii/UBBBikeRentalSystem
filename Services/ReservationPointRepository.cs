@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UBBBikeRentalSystem.Database;
+﻿using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {

@@ -22,7 +22,7 @@ namespace UBBBikeRentalSystem.Controllers {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
+        [HttpPost] // ValidateAntiForgeryToken
         public IActionResult Create(ReservationViewModel _model) {
             if (!ModelState.IsValid) return BadRequest(ModelState); //check for viewmodel validation
             var result = validator.Validate(_mapper.Map<Reservation>(_model));
