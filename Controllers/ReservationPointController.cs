@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using UBBBikeRentalSystem.Converters;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
+using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
     public class ReservationPointController: Controller, ICRUD<ReservationPointViewModel> {
         private readonly IRepository<ReservationPoint> _reservationPointRepository;
+        private readonly IMapper _mapper;
+        private readonly ReservationPointValidator validator;
 
-        public ReservationPointController(IRepository<ReservationPoint> db) {
+        public ReservationPointController(IRepository<ReservationPoint> db, IMapper mapper) {
             _reservationPointRepository = db;
+            _mapper = mapper;
+            validator = new();
         }
 
         [HttpGet]
@@ -19,11 +24,14 @@ namespace UBBBikeRentalSystem.Controllers {
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Create(ReservationPointViewModel _model) {
-            if (!ModelState.IsValid) return View(_model);
+            if (!ModelState.IsValid) return BadRequest(ModelState); //check for viewmodel validation
+            ReservationPoint reservation = _mapper.Map<ReservationPoint>(_model);
+            var result = validator.Validate(reservation);
+            if (!result.IsValid) { //check for database model validation
+                return BadRequest(result.Errors);
+            }
 
-            _reservationPointRepository.Add(
-                ReservationPointModelToViewModelConverter.ToReservationPoint(_model)
-            );
+            _reservationPointRepository.Add(reservation);
             return RedirectToAction("Index");
         }
 
@@ -31,10 +39,9 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Delete(int id) {
             ReservationPoint? rp = _reservationPointRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
+            ReservationPointViewModel reservationVM = _mapper.Map<ReservationPointViewModel>(rp);
 
-            return View(
-                ReservationPointModelToViewModelConverter.ToReservationPointViewModel(rp)
-            );
+            return View(reservationVM);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -47,29 +54,30 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Details(int id) {
             ReservationPoint? rp = _reservationPointRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
+            ReservationPointViewModel reservationVM = _mapper.Map<ReservationPointViewModel>(rp);
 
-            return View(
-                ReservationPointModelToViewModelConverter.ToReservationPointViewModel(rp)
-            );
+            return View(reservationVM);
         }
 
         [HttpGet]
         public IActionResult Edit(int id) {
             ReservationPoint? rp = _reservationPointRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
+            ReservationPointViewModel reservationVM = _mapper.Map<ReservationPointViewModel>(rp);
 
-            return View(
-                ReservationPointModelToViewModelConverter.ToReservationPointViewModel(rp)
-            );
+            return View(reservationVM);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(ReservationPointViewModel _model) {
-            if (!ModelState.IsValid) return View(_model);
+            if (!ModelState.IsValid) return BadRequest(ModelState); //check for viewmodel validation
+            ReservationPoint reservation = _mapper.Map<ReservationPoint>(_model);
+            var result = validator.Validate(reservation);
+            if (!result.IsValid) { //check for database model validation
+                return BadRequest(result.Errors);
+            }
 
-            _reservationPointRepository.Update(
-                ReservationPointModelToViewModelConverter.ToReservationPoint(_model)
-            );
+            _reservationPointRepository.Update(reservation);
             return RedirectToAction("Index");
         }
 
@@ -77,10 +85,9 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Index() {
             List<ReservationPointViewModel> _rpvm = new();
 
-            foreach (var item in _reservationPointRepository.GetAll()) {
-                _rpvm.Add(
-                    ReservationPointModelToViewModelConverter.ToReservationPointViewModel(item)
-                );
+            foreach (var reservationPoint in _reservationPointRepository.GetAll()) {
+                ReservationPointViewModel reservationVM = _mapper.Map<ReservationPointViewModel>(reservationPoint);
+                _rpvm.Add(reservationVM);
             }
 
             return View(_rpvm);
