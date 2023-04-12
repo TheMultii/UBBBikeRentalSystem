@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
