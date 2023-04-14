@@ -11,15 +11,15 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Add(User user) {
-            user.ID = _db.Users.Max(r => r.ID) + 1;
+            user.Id = _db.Users.Max(r => r.Id) + 1;
             _db.Users.Add(user);
             _db.SaveChanges();
         }
 
         public void AddRange(IEnumerable<User> users) {
-            int currentID = _db.Users.Max(r => r.ID) + 1;
+            int currentID = _db.Users.Max(r => r.Id) + 1;
             foreach (var _user in users) {
-                _user.ID = currentID;
+                _user.Id = currentID;
                 _db.Users.Add(_user);
                 _db.SaveChanges();
                 currentID++;
@@ -33,11 +33,11 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public User? Get(int id) {
-            return _db.Users.SingleOrDefault(r => r.ID == id);
+            return _db.Users.SingleOrDefault(r => r.Id == id);
         }
 
         public List<User> GetAll() {
-            return _db.Users.OrderBy(r => r.ID).ToList();
+            return _db.Users.OrderBy(r => r.Id).ToList();
         }
 
         public IQueryable<User> RawQueryable() {
@@ -45,7 +45,7 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Update(User user) {
-            var _oldVehicle = Get(user.ID) ?? throw new Exception("Brak takiego użytkownika w DB");
+            var _oldVehicle = Get(user.Id) ?? throw new Exception("Brak takiego użytkownika w DB");
             _db.Entry(_oldVehicle).CurrentValues.SetValues(user);
             _db.SaveChanges();
         }

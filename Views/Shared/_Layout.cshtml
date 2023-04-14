@@ -2,7 +2,15 @@
     string currentControllerPath = Context.GetRouteData().Values?["controller"]?.ToString() ?? "";
     string currentRoutePath = Context.GetRouteData().Values?["action"]?.ToString() ?? "";
     string currentIDPath = Context.GetRouteData().Values?["id"]?.ToString() ?? "";
-    
+
+    var kek = Context.GetRouteData().Values;
+
+    if (currentControllerPath == "" && currentRoutePath == "") {
+        var split = (Context.GetRouteData().Values?["page"]?.ToString() ?? "").Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+        currentControllerPath = split[0];
+        currentRoutePath = split[1];
+    }
+
     bool isPrivacy = currentControllerPath == "Home" && currentRoutePath == "Privacy";
     List<string> headerForbiddenControllers = new() { "Home" };
     Dictionary<string, string> headerTitle = new() {

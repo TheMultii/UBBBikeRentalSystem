@@ -134,11 +134,6 @@ namespace UBBBikeRentalSystem {
                 }
                 dbContext.SaveChanges();
 
-                for (int i = 1; i <= 10; i++) {
-                    dbContext.Users.Add(new() { ID = i, Name=i.ToString() });
-                }
-                dbContext.SaveChanges();
-
                 List<ReservationPoint> _reservationPoints = new() {
                     new() {
                         ID = 1,
@@ -177,6 +172,8 @@ namespace UBBBikeRentalSystem {
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",

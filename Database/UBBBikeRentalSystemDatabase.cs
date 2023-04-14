@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Database {
-    public class UBBBikeRentalSystemDatabase : IdentityDbContext {
+    public class UBBBikeRentalSystemDatabase : IdentityDbContext<Models.User, IdentityRole<int>, int> {
         public DbSet<Models.Vehicle> Vehicles { get; set; }
         public DbSet<Models.Reservation> Reservations { get; set; }
         public DbSet<Models.User> Users { get; set; }

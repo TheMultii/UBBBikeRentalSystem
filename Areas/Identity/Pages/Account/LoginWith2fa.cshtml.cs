@@ -113,17 +113,17 @@ namespace UBBBikeRentalSystem.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User with ID '{UserID}' logged in with 2fa.", user.ID);
+                _logger.LogInformation("User with ID '{UserID}' logged in with 2fa.", user.Id);
                 return LocalRedirect(returnUrl);
             }
             else if (result.IsLockedOut)
             {
-                _logger.LogWarning("User with ID '{UserID}' account locked out.", user.ID);
+                _logger.LogWarning("User with ID '{UserID}' account locked out.", user.Id);
                 return RedirectToPage("./Lockout");
             }
             else
             {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserID}'.", user.ID);
+                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserID}'.", user.Id);
                 ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
                 return Page();
             }
