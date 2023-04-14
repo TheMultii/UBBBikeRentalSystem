@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UBBBikeRentalSystem.ViewModels;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace UBBBikeRentalSystem.Database {
-    public class UBBBikeRentalSystemDatabase : DbContext {
+    public class UBBBikeRentalSystemDatabase : IdentityDbContext {
         public DbSet<Models.Vehicle> Vehicles { get; set; }
         public DbSet<Models.Reservation> Reservations { get; set; }
         public DbSet<Models.User> Users { get; set; }

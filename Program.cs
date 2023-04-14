@@ -7,14 +7,19 @@ using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
 using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace UBBBikeRentalSystem {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("UBBBikeRentalSystemDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'UBBBikeRentalSystemDatabaseConnection' not found.");
 
             // Register the database context.
             builder.Services.AddDbContext<UBBBikeRentalSystemDatabase>();
+
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UBBBikeRentalSystemDatabase>();
             builder.Services.AddScoped<IRepository<ReservationPoint>, ReservationPointRepository>();
             builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
             builder.Services.AddScoped<IRepository<User>, UserRepository>();
@@ -60,7 +65,7 @@ namespace UBBBikeRentalSystem {
                         Model = "Model 2",
                         ImageUrl = "/img/r2.jpg",
                         VehicleType = VehicleTypeEnum.Bike,
-                        Description = "Rower g髍ski z amortyzatorem",
+                        Description = "Rower g贸rski z amortyzatorem",
                         IsAvailable = false,
                         ManufactureDate = DateTime.Parse("2020-05-01"),
                         MaxSpeed = 25,
@@ -68,11 +73,11 @@ namespace UBBBikeRentalSystem {
                     },
                     new() {
                         ID = 3,
-                        Name = "Samoch骴 1",
+                        Name = "Samoch贸d 1",
                         Model = "Model 3",
                         ImageUrl = "/img/car.jpg",
                         VehicleType = VehicleTypeEnum.Car,
-                        Description = "Samoch骴 klasy premium",
+                        Description = "Samoch贸d klasy premium",
                         IsAvailable = true,
                         ManufactureDate = DateTime.Parse("2019-08-01"),
                         MaxSpeed = 220,
@@ -106,7 +111,7 @@ namespace UBBBikeRentalSystem {
                     new() {
                         ID = 3,
                         Name = "Car",
-                        Description = "Samoch骴 klasy premium"
+                        Description = "Samoch贸d klasy premium"
                     }
                 };
 
