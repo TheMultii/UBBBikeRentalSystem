@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace UBBBikeRentalSystem.Models {
-    public class User {
-        [Key]
+    public class User : IdentityUser {
         public int ID { get; set; }
         [Required]
         [MinLength(3), MaxLength(50)]

@@ -14,7 +14,6 @@ namespace UBBBikeRentalSystem {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("UBBBikeRentalSystemDatabaseConnection") ?? throw new InvalidOperationException("Connection string 'UBBBikeRentalSystemDatabaseConnection' not found.");
 
             // Register the database context.
             builder.Services.AddDbContext<UBBBikeRentalSystemDatabase>();
