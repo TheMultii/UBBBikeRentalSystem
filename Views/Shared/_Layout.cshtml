@@ -27,6 +27,10 @@
         { "ReservationPoint/Delete", "Usuwanie punktu wypożyczeń" },
         { "ReservationPoint/Create", "Dodawanie punktu wypożyczeń" },
         { "ReservationPoint/Details", "Informacje o punkcie wypożyczeń" },
+
+        { "Account/Login", "Logowanie" },
+        { "Account/Register", "Rejestracja" },
+        { "Account/ForgotPassword", "Resetowanie hasła" },
     };
     string headerTitleString = headerTitle.ContainsKey(currentControllerPath + "/" + currentRoutePath) ? headerTitle[currentControllerPath + "/" + currentRoutePath] : "UBB Bike Rental System";
 }
@@ -44,7 +48,7 @@
     <header class="bg-transparent absolute left-0 top-0 w-full z-50 md:py-[20px] select-none">
         <nav class="wraper">
             <div class="flex items-center justify-between md:justify-center">
-                <div>
+                <div class="it-first">
                     <h1 class="text-white text-[29px] font-bold leading-[100px] mb-[10px] lg:mb-[10px] lg:leading-[75px] md:leading-[45px] col:leading-[35px] col:mb-[0px]">UBB-BRS</h1>
                 </div>
                 <ul class="md:hidden">
@@ -73,8 +77,13 @@
                         </a>
                     </li>
                 </ul>
-                <div class="invisible md:hidden">
-                    <h1 class="text-white text-[29px] font-bold leading-[100px] mb-[10px] lg:mb-[10px] lg:leading-[75px] md:leading-[45px] col:leading-[35px] col:mb-[0px]">UBB-BRS</h1>
+                <div class="it-last flex justify-end md:hidden">
+                    <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                                before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
+                                @(currentControllerPath == "Account" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
+                       href="/Login">
+                        Logowanie
+                    </a>
                 </div>
             </div>
         </nav>
@@ -114,6 +123,19 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        let itFirst = document.querySelector(".it-first"),
+            itLast = document.querySelector(".it-last");
+
+        const setItFirstAndItLastWidth = () => {
+            if (itFirst && itLast) {
+                itLast.style.width = `${itFirst.offsetWidth}px`;
+            }
+        }
+
+        window.onload += setItFirstAndItLastWidth();
+        window.onresize += setItFirstAndItLastWidth();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
