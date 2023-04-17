@@ -14,9 +14,14 @@ namespace UBBBikeRentalSystem.Models {
         [ForeignKey("User")]
         public User UserID { get; set; }
 
-        public virtual ReservationPoint ReservationPointID { get; set; }
+        [ForeignKey("ReservationPoint")]
+        public int ReservationPointID { get; set; }
+        public virtual ReservationPoint ReservationPoint { get; set; }
 
-        public virtual ReservationPoint? ReturnPointID { get; set; }
+        
+        [ForeignKey("ReturnPoint")]
+        public int ReturnPointID { get; set; }
+        public virtual ReservationPoint? ReturnPoint { get; set; }
 
         [Required(ErrorMessage = "Data rezerwacji jest wymagana.")]
         [Display(Name = "Data rezerwacji")]
