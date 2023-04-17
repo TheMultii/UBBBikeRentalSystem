@@ -32,7 +32,7 @@ namespace UBBBikeRentalSystem.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<User> userManager,
@@ -40,7 +40,7 @@ namespace UBBBikeRentalSystem.Areas.Identity.Pages.Account
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            RoleManager<Role> roleManager) {
+            RoleManager<IdentityRole> roleManager) {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();

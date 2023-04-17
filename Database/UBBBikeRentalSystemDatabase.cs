@@ -10,7 +10,6 @@ namespace UBBBikeRentalSystem.Database {
         public override DbSet<User> Users { get; set; }
         public DbSet<ReservationPoint> ReservationPoints { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
-        public DbSet<Role> Role { get; set; } = default!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseInMemoryDatabase("UBBBikeRentalSystemDatabase");

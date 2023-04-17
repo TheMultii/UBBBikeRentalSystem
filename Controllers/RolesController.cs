@@ -5,9 +5,9 @@ using UBBBikeRentalSystem.Models;
 namespace UBBBikeRentalSystem.Controllers {
     public class RolesController : Controller {
         private readonly ILogger<RolesController> _logger;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RolesController(ILogger<RolesController> logger, RoleManager<Role> roleManager) {
+        public RolesController(ILogger<RolesController> logger, RoleManager<IdentityRole> roleManager) {
             _logger = logger;
             _roleManager = roleManager;
         }
@@ -19,7 +19,7 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Create() => View();
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Role role) {
+        public async Task<IActionResult> Create(IdentityRole role) {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             if(!_roleManager.RoleExistsAsync(role.Name).GetAwaiter().GetResult()) {

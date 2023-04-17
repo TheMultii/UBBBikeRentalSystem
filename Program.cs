@@ -26,7 +26,7 @@ namespace UBBBikeRentalSystem {
                  //options => options.SignIn.RequireConfirmedAccount = true
                 )
                 .AddDefaultTokenProviders()
-                .AddRoles<Role>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UBBBikeRentalSystemDatabase>();
             builder.Services.AddScoped<IRepository<ReservationPoint, int>, ReservationPointRepository>();
             builder.Services.AddScoped<IRepository<Reservation, int>, ReservationRepository>();
