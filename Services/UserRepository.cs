@@ -38,9 +38,7 @@ namespace UBBBikeRentalSystem.Services {
             return _db.Users.OrderBy(r => r.Id).ToList();
         }
 
-        public IQueryable<User> RawQueryable() {
-            return _db.Users.AsQueryable();
-        }
+        public IQueryable<User> RawQueryable() => _db.Users.AsQueryable();
 
         public void Update(User user) {
             var _oldVehicle = Get(user.Id) ?? throw new Exception("Brak takiego użytkownika w DB");

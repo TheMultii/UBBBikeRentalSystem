@@ -16,6 +16,8 @@ namespace UBBBikeRentalSystem.Models {
 
         public virtual VehicleType? VehicleType { get; set; }
 
+        public int? VehicleTypeID { get => VehicleType?.ID; }
+
         [Required(ErrorMessage = "Cena za godzinę jest wymagana.")]
         [Range(1, int.MaxValue, ErrorMessage = "Cena za godzinę musi być większa od 0.")]
         public int PricePerHour { get; set; }

@@ -28,5 +28,7 @@ namespace UBBBikeRentalSystem.Models {
         [Required(ErrorMessage = "Długość geograficzna jest wymagana")]
         [Range(-180, 180, ErrorMessage = "Długość geograficzna musi być między -180 a 180")]
         public double Longitude { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

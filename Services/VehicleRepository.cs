@@ -46,8 +46,6 @@ namespace UBBBikeRentalSystem.Services {
             }
         }
 
-        public IQueryable<Vehicle> RawQueryable() {
-            return _db.Vehicles.AsQueryable();
-        }
+        public IQueryable<Vehicle> RawQueryable() => _db.Vehicles.AsQueryable();
     }
 }

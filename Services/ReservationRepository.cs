@@ -51,9 +51,7 @@ namespace UBBBikeRentalSystem.Services {
                 .ToList();
         }
 
-        public IQueryable<Reservation> RawQueryable() {
-            return _db.Reservations.AsQueryable();
-        }
+        public IQueryable<Reservation> RawQueryable() => _db.Reservations.AsQueryable();
 
         public void Update(Reservation reservation) {
             var _oldVehicle = Get(reservation.ID) ?? throw new Exception("Brak takiego wypożyczenia w DB");

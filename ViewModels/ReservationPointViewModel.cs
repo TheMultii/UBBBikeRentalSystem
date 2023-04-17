@@ -34,5 +34,8 @@ namespace UBBBikeRentalSystem.ViewModels {
         [Range(-180, 180, ErrorMessage = "Długość geograficzna musi być między -180 a 180")]
         [Display(Name = "Dł. geogr.")]
         public double Longitude { get; set; }
+
+        [Display(Name = "Rezerwacje")]
+        public ICollection<ReservationViewModel> Reservations { get; set; }
     }
 }
