@@ -6,12 +6,12 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public class ReservationPointController: Controller, ICRUD<ReservationPointViewModel> {
-        private readonly IRepository<ReservationPoint> _reservationPointRepository;
+    public class ReservationPointController: Controller, ICRUD<ReservationPointViewModel, int> {
+        private readonly IRepository<ReservationPoint, int> _reservationPointRepository;
         private readonly IMapper _mapper;
         private readonly ReservationPointValidator validator;
 
-        public ReservationPointController(IRepository<ReservationPoint> db, IMapper mapper) {
+        public ReservationPointController(IRepository<ReservationPoint, int> db, IMapper mapper) {
             _reservationPointRepository = db;
             _mapper = mapper;
             validator = new();

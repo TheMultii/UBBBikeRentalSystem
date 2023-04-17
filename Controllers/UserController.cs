@@ -6,12 +6,12 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public class UserController: Controller, ICRUD<UserViewModel> {
-        private readonly IRepository<User> _userRepository;
+    public class UserController: Controller, ICRUD<UserViewModel, string> {
+        private readonly IRepository<User, string> _userRepository;
         private readonly IMapper _mapper;
         private readonly UserValidator validator;
 
-        public UserController(IRepository<User> db, IMapper mapper) {
+        public UserController(IRepository<User, string> db, IMapper mapper) {
             _userRepository = db;
             _mapper = mapper;
             validator = new();
@@ -36,7 +36,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(string id) {
             User? rp = _userRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             UserViewModel userVM = _mapper.Map<UserViewModel>(rp);
@@ -51,7 +51,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Details(int id) {
+        public IActionResult Details(string id) {
             User? rp = _userRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             UserViewModel userVM = _mapper.Map<UserViewModel>(rp);
@@ -60,7 +60,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Edit(int id) {
+        public IActionResult Edit(string id) {
             User? rp = _userRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             UserViewModel userVM = _mapper.Map<UserViewModel>(rp);

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public interface ICRUD<T> {
+    public interface ICRUD<T, K> {
         [HttpGet]
         public IActionResult Index();
 
         [HttpGet]
-        public IActionResult Details(int id);
+        public IActionResult Details(K id);
 
         [HttpGet]
         public IActionResult Create();
@@ -15,13 +15,13 @@ namespace UBBBikeRentalSystem.Controllers {
         public IActionResult Create(T _model);
 
         [HttpGet]
-        public IActionResult Edit(int id);
+        public IActionResult Edit(K id);
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Edit(T _model);
 
         [HttpGet]
-        public IActionResult Delete(int id);
+        public IActionResult Delete(K id);
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Delete(T _model);

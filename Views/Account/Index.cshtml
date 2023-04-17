@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model UBBBikeRentalSystem.Models.User
+@inject UserManager<UBBBikeRentalSystem.Models.User> UserManager
+
+@{
+    ViewData["Title"] = "Account";
+
+    User? _user = await UserManager.GetUserAsync(User);
+    var _roles = await UserManager.GetRolesAsync(_user);
+}
+
+<div>
+    @if(Model != null) {
+        <div class="wraper">
+            <div class="grid grid-cols-12">
+                <div class="col-span-1"></div>
+                <div class="col-span-10 md:col-span-12">
+                    <div class="py-[50px] sm:py-[30px]">
+                        <div class="grid grid-cols-12 gap-3">
+                            <div class="col-span-12 md:mb-7">
+                                <div class="flow-root">
+                                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                        @Html.DisplayNameFor(model => model.Id)
+                                                    </p>
+                                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                        @Html.DisplayFor(model => model.Id)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                        @Html.DisplayNameFor(model => model.Email)
+                                                    </p>
+                                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                        @Html.DisplayFor(model => model.Email)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                        Role
+                                                    </p>
+                                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                        @foreach (var role in _roles) {
+                                                            @($"{role} ")
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-1 min-w-0">
+                                                    <a class="text-sm text-gray-500 truncate dark:text-gray-400" asp-action="Index" asp-controller="Home">
+                                                        Powrót na stronę główną
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-1"></div>
+            </div>
+        </div>
+
+
+    } else {
+        <h2 class="mx-[8px] my-[20px] text-center">
+            Nie jesteś zalogowany
+        </h2>
+    }
+</div>

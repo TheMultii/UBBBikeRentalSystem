@@ -9,6 +9,10 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UBBBikeRentalSystem {
     public class Program {
@@ -18,12 +22,17 @@ namespace UBBBikeRentalSystem {
             // Register the database context.
             builder.Services.AddDbContext<UBBBikeRentalSystemDatabase>();
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UBBBikeRentalSystemDatabase>();
-            builder.Services.AddScoped<IRepository<ReservationPoint>, ReservationPointRepository>();
-            builder.Services.AddScoped<IRepository<Reservation>, ReservationRepository>();
-            builder.Services.AddScoped<IRepository<User>, UserRepository>();
-            builder.Services.AddScoped<IRepository<VehicleType>, VehicleTypeRepository>();
-            builder.Services.AddScoped<IRepository<Vehicle>, VehicleRepository>();
+            builder.Services.AddDefaultIdentity<User>(
+                 //options => options.SignIn.RequireConfirmedAccount = true
+                )
+                .AddDefaultTokenProviders()
+                .AddRoles<Role>()
+                .AddEntityFrameworkStores<UBBBikeRentalSystemDatabase>();
+            builder.Services.AddScoped<IRepository<ReservationPoint, int>, ReservationPointRepository>();
+            builder.Services.AddScoped<IRepository<Reservation, int>, ReservationRepository>();
+            builder.Services.AddScoped<IRepository<User, string>, UserRepository>();
+            builder.Services.AddScoped<IRepository<VehicleType, int>, VehicleTypeRepository>();
+            builder.Services.AddScoped<IRepository<Vehicle, int>, VehicleRepository>();
 
             // Add FluentValidation services to the container.
             builder.Services.AddFluentValidationAutoValidation();
@@ -37,6 +46,11 @@ namespace UBBBikeRentalSystem {
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.ConfigureApplicationCookie(options => {
+                options.LoginPath = "/Login";
+                options.AccessDeniedPath = "/AccessDenied";
+            });
 
             var app = builder.Build();
 

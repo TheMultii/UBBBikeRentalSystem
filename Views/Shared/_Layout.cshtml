@@ -1,9 +1,16 @@
-﻿@{
+﻿@using UBBBikeRentalSystem.Models
+
+@{
     string currentControllerPath = Context.GetRouteData().Values?["controller"]?.ToString() ?? "";
     string currentRoutePath = Context.GetRouteData().Values?["action"]?.ToString() ?? "";
     string currentIDPath = Context.GetRouteData().Values?["id"]?.ToString() ?? "";
 
-    var kek = Context.GetRouteData().Values;
+    var _values = Context.GetRouteData().Values;
+
+    var _loggedInUsername = User?.Identity?.Name ?? "";
+    if (User?.Identity?.IsAuthenticated == false && _loggedInUsername != "") {
+        _loggedInUsername = "";
+    }
 
     if (currentControllerPath == "" && currentRoutePath == "") {
         var split = (Context.GetRouteData().Values?["page"]?.ToString() ?? "").Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
@@ -40,7 +47,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - UBB Bike Rental System</title>
+    <title>@ViewData["Title"] - UBB Bike Rental System@(_loggedInUsername != "" ? $" - {_loggedInUsername}" : "")</title>
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
@@ -56,7 +63,7 @@
                         <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
                                 before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
                                 @(currentControllerPath == "Home" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
-                           asp-controller="" asp-action="">
+                           asp-controller="Home" asp-action="">
                             Home
                         </a>
                     </li>
@@ -81,8 +88,8 @@
                     <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
                                 before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
                                 @(currentControllerPath == "Account" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
-                       href="/Login">
-                        Logowanie
+                       href="/@(_loggedInUsername != "" ? "Account" : "Login")">
+                        @(_loggedInUsername != "" ? "Konto" : "Zaloguj")
                     </a>
                 </div>
             </div>
@@ -125,7 +132,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         let itFirst = document.querySelector(".it-first"),
-            itLast = document.querySelector(".it-last");
+            itLast = document.querySelector(".it-last"),
+            logoutButton = document.querySelector(".logout-button");
 
         const setItFirstAndItLastWidth = () => {
             if (itFirst && itLast) {

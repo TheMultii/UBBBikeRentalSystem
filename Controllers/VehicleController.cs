@@ -7,12 +7,12 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public class VehicleController: Controller, ICRUD<VehicleDetailViewModel> {
-        private readonly IRepository<Vehicle> _vehicleRepository;
+    public class VehicleController: Controller, ICRUD<VehicleDetailViewModel, int> {
+        private readonly IRepository<Vehicle, int> _vehicleRepository;
         private readonly IMapper _mapper;
         private readonly VehicleValidator validator;
 
-        public VehicleController(IRepository<Vehicle> db, IMapper mapper) {
+        public VehicleController(IRepository<Vehicle, int> db, IMapper mapper) {
             _vehicleRepository = db;
             _mapper = mapper;
             validator = new();

@@ -5,7 +5,7 @@ using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Converters {
     public static class VehicleTypeConverter {
-        public static VehicleType? ToVehicleType(VehicleTypeEnum? vehicleType, IRepository<VehicleType> db) {
+        public static VehicleType? ToVehicleType(VehicleTypeEnum? vehicleType, IRepository<VehicleType, int> db) {
             return db.RawQueryable().Where(x => x.Name == vehicleType.ToString()).FirstOrDefault();
         }
 

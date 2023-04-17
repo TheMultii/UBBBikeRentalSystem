@@ -3,7 +3,7 @@
 namespace UBBBikeRentalSystem.ViewModels {
     public class UserViewModel {
         [Required]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [Required]
         [MinLength(3), MaxLength(50)]

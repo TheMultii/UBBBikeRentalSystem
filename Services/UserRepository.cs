@@ -3,7 +3,7 @@ using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
-    public class UserRepository : IRepository<User> {
+    public class UserRepository : IRepository<User, string> {
         private readonly UBBBikeRentalSystemDatabase _db;
 
         public UserRepository(UBBBikeRentalSystemDatabase db) {
@@ -11,28 +11,26 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Add(User user) {
-            user.Id = _db.Users.Max(r => r.Id) + 1;
+            user.Id = Guid.NewGuid().ToString();
             _db.Users.Add(user);
             _db.SaveChanges();
         }
 
         public void AddRange(IEnumerable<User> users) {
-            int currentID = _db.Users.Max(r => r.Id) + 1;
             foreach (var _user in users) {
-                _user.Id = currentID;
+                _user.Id = Guid.NewGuid().ToString();
                 _db.Users.Add(_user);
                 _db.SaveChanges();
-                currentID++;
             }
         }
 
-        public void Delete(int id) {
+        public void Delete(string id) {
             var _delete = Get(id) ?? throw new Exception("Brak takiego użytkownika w DB");
             _db.Users.Remove(_delete);
             _db.SaveChanges();
         }
 
-        public User? Get(int id) {
+        public User? Get(string id) {
             return _db.Users.SingleOrDefault(r => r.Id == id);
         }
 

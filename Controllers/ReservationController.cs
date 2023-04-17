@@ -6,15 +6,15 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public class ReservationController : Controller, ICRUD<ReservationViewModel> {
+    public class ReservationController : Controller, ICRUD<ReservationViewModel, int> {
 
         // make sure to adjust date ranges in views (their inputs)
 
-        private readonly IRepository<Reservation> _reservationRepository;
+        private readonly IRepository<Reservation, int> _reservationRepository;
         private readonly IMapper _mapper;
         private readonly ReservationValidator validator;
 
-        public ReservationController(IRepository<Reservation> db, IMapper mapper) {
+        public ReservationController(IRepository<Reservation, int> db, IMapper mapper) {
             _reservationRepository = db;
             _mapper = mapper;
             validator = new();

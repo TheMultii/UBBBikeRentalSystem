@@ -42,6 +42,17 @@
                             </span>
                             <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" asp-for="Input.ConfirmPassword">
                         </div>
+                        <div class="relative w-full float-left mb-[25px]">
+                            <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
+                                @Html.DisplayNameFor(x => x.Input.Role)
+                            </span>
+                            <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
+                                <span asp-validation-for="Input.Role"></span>
+                            </span>
+                            <select asp-items="@Model.Input.Roles" class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" asp-for="Input.Role">
+                                <option disabled selected value="">Wybierz rolę</option>
+                            </select>
+                        </div>
 
                         <div class="text-center w-full mb-[10px]">
                             <input type="submit" value="Zarejestruj" class="cursor-pointer bg-[#222121] text-[#fff] inline-block py-[12px] px-[22px] border border-[#59C378] rounded-[55px] capitalize transition-all hover:bg-[#59C378] hover:border-transparent" />

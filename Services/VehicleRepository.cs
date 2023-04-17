@@ -3,7 +3,7 @@ using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
-    public class VehicleRepository: IRepository<Vehicle> {
+    public class VehicleRepository: IRepository<Vehicle, int> {
         private readonly UBBBikeRentalSystemDatabase _db;
 
         public VehicleRepository(UBBBikeRentalSystemDatabase db) {

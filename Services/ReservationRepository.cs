@@ -3,7 +3,7 @@ using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
-    public class ReservationRepository : IRepository<Reservation> {
+    public class ReservationRepository : IRepository<Reservation, int> {
         private readonly UBBBikeRentalSystemDatabase _db;
 
         public ReservationRepository(UBBBikeRentalSystemDatabase db) {
