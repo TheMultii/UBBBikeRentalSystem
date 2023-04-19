@@ -10,7 +10,6 @@ namespace UBBBikeRentalSystem.Database {
         public override DbSet<User> Users { get; set; }
         public DbSet<ReservationPoint> ReservationPoints { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
-        public virtual ICollection<Reservation> ReservationsAsReturnPoint { get; set; } = new HashSet<Reservation>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseInMemoryDatabase("UBBBikeRentalSystemDatabase");

@@ -8,11 +8,6 @@ using UBBBikeRentalSystem.Services;
 using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UBBBikeRentalSystem {
     public class Program {
@@ -23,7 +18,7 @@ namespace UBBBikeRentalSystem {
             builder.Services.AddDbContext<UBBBikeRentalSystemDatabase>();
 
             builder.Services.AddDefaultIdentity<User>(
-                 //options => options.SignIn.RequireConfirmedAccount = true
+                //options => options.SignIn.RequireConfirmedAccount = true
                 )
                 .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>()
