@@ -1,6 +1,5 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using System.ComponentModel.DataAnnotations;
 using UBBBikeRentalSystem.Converters;
 using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;

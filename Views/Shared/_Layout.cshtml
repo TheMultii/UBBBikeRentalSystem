@@ -19,7 +19,8 @@
     }
 
     bool isPrivacy = currentControllerPath == "Home" && currentRoutePath == "Privacy";
-    List<string> headerForbiddenControllers = new() { "Home" };
+    List<string> headerForbiddenControllers = new() { "Home", "Admin" };
+    List<string> emptyPageControllers = new() { "Admin" };
     Dictionary<string, string> headerTitle = new() {
         { "Home/Privacy", "Polityka prywatności" },
 
@@ -47,13 +48,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - UBB Bike Rental System@(_loggedInUsername != "" ? $" - {_loggedInUsername}" : "")</title>
+    <title>@ViewData["Title"] - UBB Bike Rental System</title>
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body class="bg-[#131313] text-white">
-    <header class="bg-transparent absolute left-0 top-0 w-full z-50 md:py-[20px] select-none">
-        <nav class="wraper">
+    @if (!emptyPageControllers.Contains(currentControllerPath)) {
+        <header class="bg-transparent absolute left-0 top-0 w-full z-50 md:py-[20px] select-none">
+            <nav class="wraper">
             <div class="flex items-center justify-between md:justify-center">
                 <div class="it-first">
                     <h1 class="text-white text-[29px] font-bold leading-[100px] mb-[10px] lg:mb-[10px] lg:leading-[75px] md:leading-[45px] col:leading-[35px] col:mb-[0px]">UBB-BRS</h1>
@@ -95,6 +97,7 @@
             </div>
         </nav>
     </header>
+    }
     <main role="main">
         @if (!headerForbiddenControllers.Contains(currentControllerPath) || isPrivacy) {
             <section class="min-h-[350px] sm:min-h-[250px] relative flex justify-center flex-col z-30 bg-[url('https://v4.api.mganczarczyk.pl/v4/ras/moescape/redirect?safety')] bg-no-repeat bg-center bg-cover before:content-[''] before:w-full before:h-full before:bg-[#131313] before:z-[-1] before:select-none before:pointer-events-none before:absolute before:opacity-[.8]">
@@ -117,14 +120,16 @@
         @RenderBody()
     </main>
 
-    <footer>
-        <div class="h-[1px] w-full bg-[#ffffff0d]"></div>
+    @if (!emptyPageControllers.Contains(currentControllerPath)) {
+        <footer>
+            <div class="h-[1px] w-full bg-[#ffffff0d]"></div>
         <div class="wraper border-t-1 border-[#ffffff0d]">
             <p class="text-center text-white text-[14px] py-[20px]">
                 &copy; 2023 - 🤔 UBB Bike Rental System 🤔 - <a class="underline" asp-controller="Home" asp-action="Privacy">Polityka prywatności</a>
             </p>
         </div>
     </footer>
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
