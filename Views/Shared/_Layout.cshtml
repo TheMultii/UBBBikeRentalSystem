@@ -49,8 +49,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - UBB Bike Rental System</title>
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @if (!emptyPageControllers.Contains(currentControllerPath))
+    {
+        <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    }
 </head>
 <body class="bg-[#131313] text-white">
     @if (!emptyPageControllers.Contains(currentControllerPath)) {

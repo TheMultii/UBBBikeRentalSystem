@@ -1,6 +1,279 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Admin Panel";
 }
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="~/img/favicon.png" />
+    <title>UBB Bike Rental System - Admin Panel</title>
 
-<img src="https://v4.api.mganczarczyk.pl/v4/ras/streetmoe/redirect?safety" alt="" class="w-[72vw]" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link href="~/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link href="~/css/admin-dashboard.min.css" rel="stylesheet" />
+
+    <script src="~/js/popper.min.js"></script>
+</head>
+<body class="m-0 font-sans antialiased font-normal bg-[#181818] text-base leading-defaulttext-slate-500">
+    <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+
+    <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 -translate-x-full border-0 shadow-xl dark:shadow-none dark:bg-[#1c1c1c] max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
+        <div class="h-19">
+            <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
+            <p class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700 text-center">
+                <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">UBB Bike Rental System</span>
+            </p>
+        </div>
+        <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+        <div class="items-center block w-auto max-h-screen h-sidenav grow basis-full">
+            <ul class="flex flex-col pl-0 mb-0">
+                <li class="mt-0.5 w-full">
+                    <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="/admin">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-blue-500 ni ni-tv-2 text-sm"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/admin/users">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-orange-500 ni ni-single-02 text-sm"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Użytkownicy</span>
+                    </a>
+                </li>
+                
+                <li class="w-full mt-4">
+                    <h6 class="pl-6 ml-2 font-bold leading-tight uppercase dark:text-white text-xs opacity-60">Konto</h6>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/profile">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-slate-700 text-sm ni ni-single-02"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profil</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/login">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-orange-500 text-sm ni ni-single-copy-04"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Zaloguj się</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class=" dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/register">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-cyan-500 text-sm ni ni-collection"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Zarejestruj się</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68 rounded-xl">
+
+        <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
+            <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+                <nav>
+
+                    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+                        <li class="leading-normal text-sm">
+                            <span class="text-white opacity-50">Admin</span>
+                        </li>
+                        <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+                <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto justify-end">
+                    <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+                        <li class="flex items-center">
+                            <a href="/login" class="block px-0 py-2 font-semibold text-white transition-all ease-nav-brand text-sm">
+                                <i class="fa fa-user sm:mr-1"></i>
+                                <span class="hidden sm:inline">Zaloguj się</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="w-full px-6 py-6 mx-auto">
+
+            <div class="flex flex-wrap -mx-3">
+
+                <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                    <div class="relative flex flex-col min-w-0 break-words shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border h-full">
+                        <div class="flex-auto p-4">
+                            <div class="flex flex-row -mx-3 h-full items-center">
+                                <div class="flex-none w-2/3 max-w-full px-3">
+                                    <div>
+                                        <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Wypożyczenia</p>
+                                        <h5 class="mb-2 font-bold dark:text-white">0</h5>
+                                        <p class="mb-0 dark:text-white dark:opacity-60">
+                                            <span class="font-bold leading-normal text-sm text-emerald-500">+0%</span>
+                                            od wczoraj
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="px-3 text-right basis-1/3">
+                                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                                        <i class="ni ni-money-coins text-lg relative top-3.5 text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                    <div class="relative flex flex-col min-w-0 break-words shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border h-full">
+                        <div class="flex-auto p-4">
+                            <div class="flex flex-row -mx-3 h-full items-center">
+                                <div class="flex-none w-2/3 max-w-full px-3">
+                                    <div>
+                                        <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Użytkownicy</p>
+                                        <h5 class="mb-2 font-bold dark:text-white">0</h5>
+                                        <p class="mb-0 dark:text-white dark:opacity-60">
+                                            <span class="font-bold leading-normal text-sm text-emerald-500">+0%</span>
+                                            od wczoraj
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="px-3 text-right basis-1/3">
+                                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
+                                        <i class="ni ni-world text-lg relative top-3.5 text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+                    <div class="relative flex flex-col min-w-0 break-words shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border h-full">
+                        <div class="flex-auto p-4">
+                            <div class="flex flex-row -mx-3 h-full items-center">
+                                <div class="flex-none w-2/3 max-w-full px-3">
+                                    <div>
+                                        <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">W trakcie</p>
+                                        <h5 class="mb-2 font-bold dark:text-white">0</h5>
+                                        <p class="mb-0 dark:text-white dark:opacity-60">
+                                            <span class="font-bold leading-normal text-emerald-600 text-sm">+0%</span>
+                                            od wczoraj
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="px-3 text-right basis-1/3">
+                                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-500 to-teal-400">
+                                        <i class="ni ni-paper-diploma text-lg relative top-3.5 text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:w-1/4">
+                    <div class="relative flex flex-col min-w-0 break-words shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border h-full">
+                        <div class="flex-auto p-4">
+                            <div class="flex flex-row -mx-3 h-full items-center">
+                                <div class="flex-none w-2/3 max-w-full px-3">
+                                    <div>
+                                        <p class="mb-0 font-sans font-semibold leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Zysk</p>
+                                        <h5 class="mb-2 font-bold dark:text-white">0 PLN</h5>
+                                        <p class="mb-0 dark:text-white dark:opacity-60">
+                                            <span class="font-bold leading-normal text-sm text-emerald-500">+0%</span>
+                                            od wczoraj
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="px-3 text-right basis-1/3">
+                                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
+                                        <i class="ni ni-cart text-lg relative top-3.5 text-white"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap mt-6 -mx-3">
+                <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
+                    <div class="border-black/12.5 dark:bg-[#1c1c1c] dark:shadow-dark-xl shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-clip-border">
+                        <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
+                            <h6 class="capitalize dark:text-white">Wykres wypożyczeń</h6>
+                            <p class="mb-0 leading-normal dark:text-white dark:opacity-60 text-sm">
+                                <i class="fa fa-arrow-up text-emerald-500"></i>
+                                <span class="font-semibold">0% więcej</span> niż rok temu
+                            </p>
+                        </div>
+                        <div class="flex-auto p-4">
+                            <div>
+                                <canvas id="chart-line" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
+                    <div slider class="relative w-full h-full overflow-hidden rounded-2xl">
+
+                        <div slide class="absolute w-full h-full transition-all duration-500">
+                            <img class="object-cover h-full w-full" src="https://v4.api.mganczarczyk.pl/v4/ras/display/21983859-cdab-4d4f-99ee-4bcea5df41b7" alt="carousel image" />
+                            <div class="absolute top-0 left-0 w-full h-full bg-[#1c1c1c] opacity-[.6]"></div>
+                            <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
+                                <h5 class="mb-1 text-white">UBB Bike Rental System</h5>
+                                <p class="dark:opacity-80">Rowerów wypożyczenie.</p>
+                            </div>
+                        </div>
+
+                        <div slide class="absolute w-full h-full transition-all duration-500">
+                            <img class="object-cover h-full w-full" src="https://v4.api.mganczarczyk.pl/v4/ras/display/d263005f-c41a-4ef8-9b0f-69b7689df75b" alt="carousel image" />
+                            <div class="absolute top-0 left-0 w-full h-full bg-[#1c1c1c] opacity-[.6]"></div>
+                            <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
+                                <h5 class="mb-1 text-white">UBB Bike Rental System</h5>
+                                <p class="dark:opacity-80">Wypożyczenie rowerów.</p>
+                            </div>
+                        </div>
+
+                        <div slide class="absolute w-full h-full transition-all duration-500">
+                            <img class="object-cover h-full w-full" src="https://v4.api.mganczarczyk.pl/v4/ras/display/0394b4fc-d708-4b7a-856a-3dd0fc854bc0" alt="carousel image" />
+                            <div class="absolute top-0 left-0 w-full h-full bg-[#1c1c1c] opacity-[.6]"></div>
+                            <div class="block text-start ml-12 left-0 bottom-0 absolute right-[15%] pt-5 pb-5 text-white">
+                                <h5 class="mb-1 text-white">UBB Bike Rental System</h5>
+                                <p class="dark:opacity-80">Rent a bike.</p>
+                            </div>
+                        </div>
+
+                        <button btn-next class="absolute z-10 w-10 h-10 p-2 text-white border-none opacity-50 cursor-pointer text-lg hover:opacity-100 active:scale-110 top-6 right-4">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button btn-prev class="absolute z-10 w-10 h-10 p-2 text-white border-none opacity-50 cursor-pointer text-lg hover:opacity-100 active:scale-110 top-6 right-16">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script src="~/js/plugins/chartjs.min.js"></script>
+<script src="~/js/charts.js"></script>
+
+<script src="~/js/plugins/perfect-scrollbar.min.js" async></script>
+
+<script src="~/js/admin-dashboard.js" async></script>
+</html>

@@ -2,6 +2,6 @@
 
 namespace UBBBikeRentalSystem.Models {
     public class User : IdentityUser<string> {
-        //w przyszłości coś tu można dodać
+        public DateTime CreatedAt;
     }
 }

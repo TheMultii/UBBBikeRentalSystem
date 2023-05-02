@@ -7,7 +7,7 @@ namespace UBBBikeRentalSystem.Database {
     public class UBBBikeRentalSystemDatabase : IdentityDbContext<User, IdentityRole, string> {
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public override DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<ReservationPoint> ReservationPoints { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
 

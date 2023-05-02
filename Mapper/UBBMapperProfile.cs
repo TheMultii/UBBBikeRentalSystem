@@ -7,6 +7,7 @@ using UBBBikeRentalSystem.ViewModels;
 namespace UBBBikeRentalSystem.Mapper {
     public class UBBMapperProfile : Profile {
         public UBBMapperProfile(UBBBikeRentalSystemDatabase db) {
+
             CreateMap<VehicleDetailViewModel, Vehicle>()
                 .ForMember(
                     dest => dest.VehicleType,
@@ -28,14 +29,18 @@ namespace UBBBikeRentalSystem.Mapper {
                     dest => dest.VehicleType,
                     opt => opt.MapFrom(src => VehicleTypeConverter.ToVehicleTypeEnum(src.VehicleType))
                 );
-				
-			CreateMap<ReservationPoint, ReservationPointViewModel>().ReverseMap();
+
+            CreateMap<ReservationPoint, ReservationPointViewModel>().ReverseMap();
 
             CreateMap<Reservation, ReservationViewModel>().ReverseMap();
 
-            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>()
+                .ForMember(
+                    dest => dest.Name,
+                    opt => opt.MapFrom(src => src.UserName)
+                );
         }
 
-        public UBBMapperProfile() : this(new UBBBikeRentalSystemDatabase()) { }
+        public UBBMapperProfile() : this(new UBBBikeRentalSystemDatabase()) {}
     }
 }
