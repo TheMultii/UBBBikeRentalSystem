@@ -35,7 +35,7 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public List<User> GetAll() {
-            return _db.Users.OrderBy(r => r.Id).ToList();
+            return _db.Users.OrderBy(r => r.CreatedAt).ToList();
         }
 
         public IQueryable<User> RawQueryable() => _db.Users.AsQueryable();
