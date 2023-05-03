@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 using UBBBikeRentalSystem.Models;
 using UBBBikeRentalSystem.Services;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "Administrator")]
     public class AdminController : Controller {
         private readonly IRepository<User, string> _userRepository;
         private readonly IMapper _mapper;
