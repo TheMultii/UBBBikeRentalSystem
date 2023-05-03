@@ -51,7 +51,7 @@ namespace UBBBikeRentalSystem {
             // Get a reference to the database context
             using (var serviceScope = app.Services.CreateScope()) {
                 var dbContext = serviceScope.ServiceProvider.GetService<UBBBikeRentalSystemDatabase>();
-                if (dbContext is null) return;
+                if (dbContext is null) throw new Exception("dbContext is null");
 
                 List<VehicleDetailViewModel> veh_list = new() {
                     new() {
@@ -167,6 +167,49 @@ namespace UBBBikeRentalSystem {
                 dbContext.SaveChanges();
             }
 
+            //Get a reference to the UserManager
+            using (var serviceScope = app.Services.CreateScope()) {
+                var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
+                var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
+                if (userManager is null || roleManager is null) throw new Exception("userManager or/and roleManager is null");
+
+                //create default roles
+                var roles = new[] { "Administrator", "Operator", "Użytkownik" };
+                foreach (var role in roles) {
+                    if (!roleManager.RoleExistsAsync(role).Result) {
+                        var result = roleManager.CreateAsync(new IdentityRole(role)).Result;
+                        if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+                    }
+                }
+
+                //create default users
+                var user_admin = new User {
+                    UserName = "Administrator",
+                    Email = "administrator@ubb.bielsko.pl",
+                    CreatedAt = DateTime.Now,
+                    Id = Guid.NewGuid().ToString()
+                };
+                userManager.CreateAsync(user_admin, "Admin123!").Wait();
+                userManager.AddToRoleAsync(user_admin, "Administrator").Wait();
+
+                var user_operator = new User {
+                    UserName = "Operator",
+                    Email = "operator@ubb.bielsko.pl",
+                    CreatedAt = DateTime.Now,
+                    Id = Guid.NewGuid().ToString()
+                };
+                userManager.CreateAsync(user_operator, "Operator123!").Wait();
+                userManager.AddToRoleAsync(user_operator, "Operator").Wait();
+
+                var user_user = new User {
+                    UserName = "User",
+                    Email = "user@ubb.bielsko.pl",
+                    CreatedAt = DateTime.Now,
+                    Id = Guid.NewGuid().ToString()
+                };
+                userManager.CreateAsync(user_user, "User123!").Wait();
+                userManager.AddToRoleAsync(user_user, "Użytkownik").Wait();
+            }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment()) {
                 app.UseExceptionHandler("/Home/Error");

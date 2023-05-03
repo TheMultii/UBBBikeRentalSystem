@@ -13,7 +13,7 @@ namespace UBBBikeRentalSystem.Controllers {
             _userManager = userManager;
         }
 
-        [HttpGet, Authorize(Roles="Admin")]
+        [HttpGet]
         public async Task<IActionResult> Index() {
             User? user = null;
             if (User?.Identity?.IsAuthenticated ?? false) {
