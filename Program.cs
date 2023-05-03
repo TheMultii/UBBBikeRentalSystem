@@ -209,6 +209,10 @@ namespace UBBBikeRentalSystem {
                 };
                 userManager.CreateAsync(user_user, "User123!").Wait();
                 userManager.AddToRoleAsync(user_user, "Użytkownik").Wait();
+
+                Console.WriteLine($"Admin: {user_admin.Id}");
+                Console.WriteLine($"Operator: {user_operator.Id}");
+                Console.WriteLine($"User: {user_user.Id}");
             }
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment()) {

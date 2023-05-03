@@ -1,4 +1,6 @@
-﻿@{
+﻿@model UBBBikeRentalSystem.ViewModels.UserViewModel
+
+@{
     //Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Admin Panel";
 }
@@ -24,7 +26,7 @@
 <body class="m-0 font-sans antialiased font-normal bg-[#181818] text-base leading-defaulttext-slate-500">
     <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
 
-    <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 -translate-x-full border-0 shadow-xl dark:shadow-none dark:bg-[#1c1c1c] max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
+    <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 admin-hide border-0 shadow-xl dark:shadow-none dark:bg-[#1c1c1c] max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
         <div class="h-19">
             <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
             <p class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700 text-center">
@@ -98,9 +100,9 @@
                 <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto justify-end">
                     <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
                         <li class="flex items-center">
-                            <a href="/login" class="block px-0 py-2 font-semibold text-white transition-all ease-nav-brand text-sm">
+                            <a href="/account" class="block px-0 py-2 font-semibold text-white transition-all ease-nav-brand text-sm">
                                 <i class="fa fa-user sm:mr-1"></i>
-                                <span class="hidden sm:inline">Zaloguj się</span>
+                                <span class="hidden sm:inline">@Model.Name</span>
                             </a>
                         </li>
                     </ul>

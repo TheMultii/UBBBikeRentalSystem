@@ -39,6 +39,12 @@ namespace UBBBikeRentalSystem.Mapper {
                     dest => dest.Name,
                     opt => opt.MapFrom(src => src.UserName)
                 );
+
+            CreateMap<User, UserWithReservationsViewModel>()
+                .ForMember(
+                    dest => dest.Name,
+                    opt => opt.MapFrom(src => src.UserName)
+                );
         }
 
         public UBBMapperProfile() : this(new UBBBikeRentalSystemDatabase()) {}

@@ -36,8 +36,8 @@ namespace UBBBikeRentalSystem.Services {
             return _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
-                .Include(r => r.ReservationPointID)
-                .Include(r => r.ReturnPointID)
+                .Include(r => r.ReservationPoint)
+                .Include(r => r.ReturnPoint)
                 .SingleOrDefault(r => r.ID == id);
         }
 
@@ -45,8 +45,8 @@ namespace UBBBikeRentalSystem.Services {
             return _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
-                .Include(r => r.ReservationPointID)
-                .Include(r => r.ReturnPointID)
+                .Include(r => r.ReservationPoint)
+                .Include(r => r.ReturnPoint)
                 .OrderBy(r => r.ID)
                 .ToList();
         }

@@ -26,7 +26,7 @@ var white_sidenav_classes = ["bg-white", "shadow-xl"];
 // var white_sidenav_highlighted = ["shadow-xl"];
 // var white_sidenav_icons = ["bg-white"];
 
-var black_sidenav_classes = ["bg-slate-850", "shadow-none"];
+var black_sidenav_classes = ["bg-[#1c1c1c]", "shadow-none"];
 // var black_sidenav_highlighted = ["shadow-none"];
 // var black_sidenav_icons = ["bg-gray-200"];
 
@@ -223,7 +223,7 @@ if (navbar) {
       navbar.classList.add("top-[1%]");
       navbar.classList.add("backdrop-saturate-200");
       navbar.classList.add("backdrop-blur-2xl");
-      navbar.classList.add("dark:bg-slate-850/80");
+      navbar.classList.add("dark:bg-[#1c1c1c]/80");
       navbar.classList.add("dark:shadow-dark-blur");
       navbar.classList.add("bg-[hsla(0,0%,100%,0.8)]");
       navbar.classList.add("shadow-blur");
@@ -234,7 +234,7 @@ if (navbar) {
       navbar.classList.remove("top-[1%]");
       navbar.classList.remove("backdrop-saturate-200");
       navbar.classList.remove("backdrop-blur-2xl");
-      navbar.classList.remove("dark:bg-slate-850/80");
+      navbar.classList.remove("dark:bg-[#1c1c1c]/80");
       navbar.classList.remove("dark:shadow-dark-blur");
       navbar.classList.remove("bg-[hsla(0,0%,100%,0.8)]");
       navbar.classList.remove("shadow-blur");
