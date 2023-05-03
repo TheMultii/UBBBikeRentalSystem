@@ -22,28 +22,28 @@ if (!aux.includes("pages")) {
   page = "dashboard";
 }
 
-loadStylesheet(to_build + "/css/perfect-scrollbar.css");
-loadJS(to_build + "/js/perfect-scrollbar.js", true);
+loadStylesheet("/css/perfect-scrollbar.css");
+loadJS("/js/perfect-scrollbar.js", true);
 
 if (document.querySelector("[slider]")) {
-  loadJS(to_build + "/js/carousel.js", true);
+  loadJS("/js/carousel.js", true);
 }
 
 if (document.querySelector("nav [navbar-trigger]")) {
-  loadJS(to_build + "/js/navbar-collapse.js", true);
+  loadJS("/js/navbar-collapse.js", true);
 }
 
 if (document.querySelector("[data-target='tooltip']")) {
-  loadJS(to_build + "/js/tooltips.js", true);
-  loadStylesheet(to_build + "/css/tooltips.css");
+  loadJS("/js/tooltips.js", true);
+  loadStylesheet("/css/tooltips.css");
 }
 
 if (document.querySelector("[nav-pills]")) {
-  loadJS(to_build + "/js/nav-pills.js", true);
+  loadJS("/js/nav-pills.js", true);
 }
 
 if (document.querySelector("[dropdown-trigger]")) {
-  loadJS(to_build + "/js/dropdown.js", true);
+  loadJS("/js/dropdown.js", true);
 
 }
 
@@ -53,15 +53,15 @@ if (document.querySelector("[fixed-plugin]")) {
 
 if (document.querySelector("[navbar-main]") || document.querySelector("[navbar-profile]")) {
   if(document.querySelector("[navbar-main]")){
-    loadJS(to_build + "/js/navbar-sticky.js", true);
+    loadJS("/js/navbar-sticky.js", true);
   }
-  if (document.querySelector("aside")) {
-    loadJS(to_build + "/js/sidenav-burger.js", true);
-  }
+  //if (document.querySelector("aside")) {
+  //  loadJS("/js/sidenav-burger.js", true);
+  //}
 }
 
 if (document.querySelector("canvas")) {
-  loadJS(to_build + "/js/charts.js", true);
+  loadJS("/js/plugins/charts.js", true);
 }
 
 if (document.querySelector(".github-button")) {

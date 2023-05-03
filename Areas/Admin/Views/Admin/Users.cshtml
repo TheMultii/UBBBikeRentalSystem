@@ -1,9 +1,5 @@
 ﻿@model UBBBikeRentalSystem.Areas.Admin.ViewModels.AreaAdminUsersViewModel
 
-@{
-    //Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Admin Panel";
-}
 <!DOCTYPE html>
 <html lang="pl" class="dark">
 <head>
@@ -160,7 +156,7 @@
                                                     <span class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">@shortDT</span>
                                                 </td>
                                                 <td class="p-2 align-middle bg-transparent border-b dark:border-white/40 whitespace-nowrap shadow-transparent">
-                                                    <a href="javascript:;" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400"> Edytuj </a>
+                                                    <a href="/admin/edituser/@item.ID" class="text-xs font-semibold leading-tight dark:text-white dark:opacity-80 text-slate-400">Edytuj</a>
                                                 </td>
                                             </tr>
                                         }
@@ -170,7 +166,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </main>

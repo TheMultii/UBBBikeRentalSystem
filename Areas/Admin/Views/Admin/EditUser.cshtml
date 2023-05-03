@@ -1,7 +1,10 @@
-﻿@model UBBBikeRentalSystem.Areas.Admin.ViewModels.AreaAdminEditUserViewModel
+﻿@using Microsoft.AspNetCore.Identity
+
+@model UBBBikeRentalSystem.Areas.Admin.ViewModels.AreaAdminEditUserViewModel
+@inject RoleManager<IdentityRole> roleManager
 
 @{
-    ViewData["Title"] = "Admin Panel";
+    var availableRoles = roleManager.Roles.ToList();
 }
 <!DOCTYPE html>
 <html lang="pl" class="dark">
@@ -142,19 +145,19 @@
                                 </div>
                                 <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                                     <div class="mb-4">
-                                        <label for="Username" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Email address</label>
+                                        <label for="Username" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Username</label>
                                         <input disabled type="text" name="Username" value="@Model.user.Name" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
                                     </div>
                                 </div>
                                 <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                                     <div class="mb-4">
-                                        <label for="Email" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">First name</label>
+                                        <label for="Email" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Email</label>
                                         <input disabled type="email" name="email" value="@Model.user.Email" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
                                     </div>
                                 </div>
                                 <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
                                     <div class="mb-4">
-                                        <label for="Data rejestracji" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Last name</label>
+                                        <label for="Data rejestracji" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Data rejestracji</label>
                                         <input disabled type="text" name="registerdate" value="@Model.user.CreatedAt" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
                                     </div>
                                 </div>
@@ -162,12 +165,12 @@
                             <hr class="h-px mx-0 my-4 bg-transparent border-0 opacity-25 bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent " />
 
                             <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Role użytkownika</p>
-                            <div class="flex flex-wrap mb-4">
+                            <div class="flex flex-wrap mb-4" id="roleChipContainer">
                                 @foreach (var curentRole in Model.user.Roles) {
                                     <div id="roleChip_@curentRole" onclick="removeRole(this)" class="[word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] border border-[#54b4d3] bg-[#eceff1] bg-[transparent] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:border-[#54b4d3] hover:!shadow-none dark:text-neutral-200">
-                                        @curentRole
+                                        <span class="role-chip pointer-events-none">@curentRole</span>
                                         <span data-te-chip-close
-                                              class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
+                                              class="float-right pointer-events-none w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                  fill="none"
                                                  viewBox="0 0 24 24"
@@ -183,9 +186,9 @@
                                 }
 
                                 <div id="roleChipTemplate" onclick="removeRole(this)" class="hidden [word-wrap: break-word] my-[5px] mr-4 flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] border border-[#54b4d3] bg-[#eceff1] bg-[transparent] px-[12px] py-0 text-[13px] font-normal normal-case leading-loose text-[#4f4f4f] shadow-none transition-[opacity] duration-300 ease-linear hover:border-[#54b4d3] hover:!shadow-none dark:text-neutral-200">
-                                    template_name
+                                    <span class="role-chip pointer-events-none">template_name</span>
                                     <span data-te-chip-close
-                                          class="float-right w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
+                                          class="float-right pointer-events-none w-4 cursor-pointer pl-[8px] text-[16px] text-[#afafaf] opacity-[.53] transition-all duration-200 ease-in-out hover:text-[#8b8b8b] dark:text-neutral-400 dark:hover:text-neutral-100">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              fill="none"
                                              viewBox="0 0 24 24"
@@ -204,12 +207,16 @@
                                 <div class="w-full w8 max-w-full px-3 shrink-0">
                                     <div class="mb-4">
                                         <label for="role" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Dodaj rolę</label>
-                                        <input type="text" name="role" value="@Model.user.Roles[0]" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+                                        <select type="text" name="role" id="addRoleSelect" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                            @foreach (var role in availableRoles) {
+                                                <option value="@role.Name">@role.Name</option>
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="w-full w2 max-w-full px-3 shrink-0">
                                     <div class="mb-1">
-                                        <button type="button" id="addrolebutton" class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Dodaj</button>
+                                        <button type="button" id="addRoleButton" onclick="addRole(this)" class="inline-block px-8 py-2 mb-4 ml-auto font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85">Dodaj</button>
                                     </div>
                                 </div>
                             </div>
@@ -253,14 +260,44 @@
             </div>
         </div>
     </div>
-
+    <form method="post" class="hidden" id="formToSend" action="/Admin/EditUser/@Model.user.ID"></form>
     <script>
-        const addRoleButton = document.getElementById("addrolebutton");
+        const addRoleButton = document.getElementById("addRoleButton");
+        const roleChipContainer = document.getElementById("roleChipContainer");
+        const roleChipTemplate = document.getElementById("roleChipTemplate");
+        const addRoleSelect = document.getElementById("addRoleSelect");
+        const formToSend = document.getElementById("formToSend");
+
         let roles = ['@Model.user.Roles[0]'];
-        console.log(roles);
 
         const removeRole = (event) => {
-            console.log(event);
+            let role = event.querySelector(".role-chip").innerText;
+            roles = roles.filter(r => r != role);
+            event.remove();
+        }
+
+        const addRole = (event) => {
+            if(roles.indexOf(addRoleSelect.value) > -1) {
+                return;
+            }
+            roles.push(addRoleSelect.value);
+            let clone = roleChipTemplate.cloneNode(true);
+            clone.classList.remove("hidden");
+            clone.id = `roleChip_${addRoleSelect.value}`;
+            clone.querySelector(".role-chip").innerText = addRoleSelect.value;
+            clone.querySelector(".role-chip").addEventListener("click", removeRole);
+            roleChipContainer.appendChild(clone);
+        }
+
+        const submitRoles = () => {
+            for (let i = 0; i < roles.length; i++) {
+                let input = document.createElement("input");
+                input.type = "hidden";
+                input.name = `roles[${i}]`;
+                input.value = roles[i];
+                formToSend.appendChild(input);
+            }
+            formToSend.submit();
         }
 
     </script>

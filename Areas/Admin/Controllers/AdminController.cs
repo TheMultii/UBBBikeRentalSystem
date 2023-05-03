@@ -101,6 +101,38 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
             };
 
             return View(_auvm);
-        } 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(Guid id, UserAddRoles addRoles) {
+            var roles = addRoles.roles;
+            if (roles == null) return BadRequest();
+            if (roles.Count == 0) return BadRequest();
+
+            for (int i = 0; i < roles.Count; i++) {
+                roles[i] = roles[i].ToLower();
+            }
+
+            List<string> validRoles = new() { "administrator", "operator", "użytkownik" };
+
+            foreach (var role in roles) {
+                if(!validRoles.Contains(role)) return BadRequest();
+            }
+
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) return NotFound();
+
+            //remove all roles from user
+            var userRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+            //add new roles to user
+            foreach (var orderRole in validRoles) {
+                if (!addRoles.roles.Contains(orderRole)) continue;
+                await _userManager.AddToRoleAsync(user, orderRole);
+            }
+
+            return RedirectToAction("Users");
+        }
     }
 }
