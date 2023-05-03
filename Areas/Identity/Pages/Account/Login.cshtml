@@ -17,12 +17,12 @@
                     <div class="p-[50px] relative w-3/6 float-left col:w-full col:p-[20px] self-center">
                         <div class="relative w-full float-left mb-[25px]">
                             <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">
-                                @Html.DisplayNameFor(x => x.Input.Email)
+                                @Html.DisplayNameFor(x => x.Input.UserName)
                             </span>
                             <span class="absolute top-[-11px] pointer-events-none right-[7px] text-sm px-[10px] block bg-[#222121] text-red-500">
-                                <span asp-validation-for="Input.Email"></span>
+                                <span asp-validation-for="Input.UserName"></span>
                             </span>
-                            <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" asp-for="Input.Email">
+                            <input required class="w-full bg-transparent h-[50px] border border-[#363636] text-[#D8D8D8] transition-all pl-[25px] focus:outline-0 focus:shadow-none focus:border-[#59C378] focus:bg-transparent outline-none" asp-for="Input.UserName">
                         </div>
                         <div class="relative w-full float-left mb-[25px]">
                             <span class="absolute top-[-11px] pointer-events-none left-[7px] text-sm px-[10px] block bg-[#222121]">

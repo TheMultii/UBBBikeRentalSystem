@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace UBBBikeRentalSystem.Models {
     public class User : IdentityUser<string> {
-        public DateTime CreatedAt;
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime CreatedAt { get; set; }
     }
 }
