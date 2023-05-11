@@ -50,9 +50,7 @@ namespace UBBBikeRentalSystem {
 
             // Get a reference to the database context
             using (var serviceScope = app.Services.CreateScope()) {
-                var dbContext = serviceScope.ServiceProvider.GetService<UBBBikeRentalSystemDatabase>();
-                if (dbContext is null) throw new Exception("dbContext is null");
-
+                var dbContext = serviceScope.ServiceProvider.GetService<UBBBikeRentalSystemDatabase>() ?? throw new Exception("dbContext is null");
                 List<VehicleDetailViewModel> veh_list = new() {
                     new() {
                         ID = 1,
