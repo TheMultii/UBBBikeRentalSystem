@@ -233,6 +233,12 @@ namespace UBBBikeRentalSystem {
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapAreaControllerRoute(
+                name: "Users",
+                areaName: "Users",
+                pattern: "Users/{action=Index}/{id?}",
+                defaults: new { controller = "Users" });
+
+            app.MapAreaControllerRoute(
                 name: "Admin",
                 areaName: "Admin",
                 pattern: "Admin/{action=Index}/{id?}",
