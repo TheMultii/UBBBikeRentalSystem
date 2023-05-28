@@ -32,7 +32,23 @@ namespace UBBBikeRentalSystem.Mapper {
 
             CreateMap<ReservationPoint, ReservationPointViewModel>().ReverseMap();
 
-            CreateMap<Reservation, ReservationViewModel>().ReverseMap();
+            CreateMap<Reservation, ReservationViewModel>()
+                .ForMember(
+                    dest => dest.User,
+                    opt => opt.MapFrom(src => src.UserID)
+                )
+                .ForMember(
+                    dest => dest.Vehicle,
+                    opt => opt.MapFrom(src => src.VehicleID)
+                )
+                .ForMember(
+                    dest => dest.ReservationPoint,
+                    opt => opt.MapFrom(src => src.ReservationPoint)
+                )
+                .ForMember(
+                    dest => dest.ReturnPoint,
+                    opt => opt.MapFrom(src => src.ReturnPoint)
+                ).ReverseMap();
 
             CreateMap<User, UserViewModel>()
                 .ForMember(

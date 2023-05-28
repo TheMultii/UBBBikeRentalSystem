@@ -31,33 +31,42 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public Reservation? Get(string id) {
-            return _db.Reservations
+            var l = _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
-                .Include(r => r.ReturnPoint)
+                .OrderBy(r => r.ID)
                 .SingleOrDefault(r => r.ID == id);
+            if (l != null)
+                l.ReturnPoint = _db.Reservations.Where(x => x.ID == l.ID).Select(x => x.ReturnPoint).FirstOrDefault();
+            return l;
         }
 
         public List<Reservation> GetUsers(string userID) {
-              return _db.Reservations
+            var l = _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
-                .Include(r => r.ReturnPoint)
-                .Where(r => r.UserID.Id == userID)
                 .OrderBy(r => r.ID)
+                .Where(r => r.UserID.Id == userID)
                 .ToList();
+            foreach (var r in l) {
+                r.ReturnPoint = _db.Reservations.Where(x => x.ID == r.ID).Select(x => x.ReturnPoint).FirstOrDefault();
+            }
+            return l;
         }
 
         public List<Reservation> GetAll() {
-            return _db.Reservations
+            var l = _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
-                .Include(r => r.ReturnPoint)
                 .OrderBy(r => r.ID)
                 .ToList();
+            foreach (var r in l) {
+                r.ReturnPoint = _db.Reservations.Where(x => x.ID == r.ID).Select(x => x.ReturnPoint).FirstOrDefault();
+            }
+            return l;
         }
 
         public IQueryable<Reservation> RawQueryable() => _db.Reservations.AsQueryable();

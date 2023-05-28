@@ -41,7 +41,7 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
             if (loggedInUser == null) return Forbid();
             UserViewModel userVM = _mapper.Map<UserViewModel>(loggedInUser);
 
-            List<Reservation> reservations = _reservationRepository.GetUsers(userVM.ID);
+            List<Reservation> reservations = _reservationRepository.GetUsers(loggedInUser.Id);
             List<ReservationViewModel> reservationVMs = new();
 
             foreach (Reservation reservation in reservations) {

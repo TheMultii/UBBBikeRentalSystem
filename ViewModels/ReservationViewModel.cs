@@ -4,15 +4,15 @@ using UBBBikeRentalSystem.Models;
 namespace UBBBikeRentalSystem.ViewModels {
     public class ReservationViewModel {
         [Required]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [Display(Name = "Pojazd")]
         [Required(ErrorMessage = "Pole Pojazd jest wymagane.")]
-        public Vehicle Vehicle { get; set; }
+        public VehicleItemViewModel Vehicle { get; set; }
 
         [Display(Name = "Użytkownik")]
         [Required(ErrorMessage = "Pole Użytkownik jest wymagane.")]
-        public User User { get; set; }
+        public UserViewModel User { get; set; }
 
         [Display(Name = "Punkt Wypożyczenia")]
         [Required(ErrorMessage = "Pole Punkt Wypożyczenia jest wymagane.")]

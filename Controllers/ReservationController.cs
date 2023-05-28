@@ -6,15 +6,15 @@ using UBBBikeRentalSystem.Validators;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Controllers {
-    public class ReservationController : Controller, ICRUD<ReservationViewModel, int> {
+    public class ReservationController : Controller, ICRUD<ReservationViewModel, string> {
 
         // make sure to adjust date ranges in views (their inputs)
 
-        private readonly IRepository<Reservation, int> _reservationRepository;
+        private readonly IRepository<Reservation, string> _reservationRepository;
         private readonly IMapper _mapper;
         private readonly ReservationValidator validator;
 
-        public ReservationController(IRepository<Reservation, int> db, IMapper mapper) {
+        public ReservationController(IRepository<Reservation, string> db, IMapper mapper) {
             _reservationRepository = db;
             _mapper = mapper;
             validator = new();
@@ -39,7 +39,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Delete(int id) {
+        public IActionResult Delete(string id) {
             Reservation? rp = _reservationRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             ReservationViewModel reservationVM = _mapper.Map<ReservationViewModel>(rp);
@@ -54,7 +54,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Details(int id) {
+        public IActionResult Details(string id) {
             Reservation? rp = _reservationRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             ReservationViewModel reservationVM = _mapper.Map<ReservationViewModel>(rp);
@@ -63,7 +63,7 @@ namespace UBBBikeRentalSystem.Controllers {
         }
 
         [HttpGet]
-        public IActionResult Edit(int id) {
+        public IActionResult Edit(string id) {
             Reservation? rp = _reservationRepository.Get(id);
             if (rp is null) return RedirectToAction("Index");
             ReservationViewModel reservationVM = _mapper.Map<ReservationViewModel>(rp);
