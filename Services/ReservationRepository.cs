@@ -3,7 +3,7 @@ using UBBBikeRentalSystem.Database;
 using UBBBikeRentalSystem.Models;
 
 namespace UBBBikeRentalSystem.Services {
-    public class ReservationRepository : IRepository<Reservation, int> {
+    public class ReservationRepository : IRepository<Reservation, string> {
         private readonly UBBBikeRentalSystemDatabase _db;
 
         public ReservationRepository(UBBBikeRentalSystemDatabase db) {
@@ -17,28 +17,37 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void AddRange(IEnumerable<Reservation> reservations) {
-            int currentID = _db.Reservations.Max(r => r.ID) + 1;
             foreach (var _reservation in reservations) {
-                _reservation.ID = currentID;
+                _reservation.ID = Guid.NewGuid().ToString();
                 _db.Reservations.Add(_reservation);
                 _db.SaveChanges();
-                currentID++;
             }
         }
 
-        public void Delete(int id) {
+        public void Delete(string id) {
             var _delete = Get(id) ?? throw new Exception("Brak takiego wypożyczenia  w DB");
             _db.Reservations.Remove(_delete);
             _db.SaveChanges();
         }
 
-        public Reservation? Get(int id) {
+        public Reservation? Get(string id) {
             return _db.Reservations
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
                 .Include(r => r.ReturnPoint)
                 .SingleOrDefault(r => r.ID == id);
+        }
+
+        public List<Reservation> GetUsers(string userID) {
+              return _db.Reservations
+                .Include(r => r.VehicleID)
+                .Include(r => r.UserID)
+                .Include(r => r.ReservationPoint)
+                .Include(r => r.ReturnPoint)
+                .Where(r => r.UserID.Id == userID)
+                .OrderBy(r => r.ID)
+                .ToList();
         }
 
         public List<Reservation> GetAll() {

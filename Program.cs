@@ -23,7 +23,7 @@ namespace UBBBikeRentalSystem {
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UBBBikeRentalSystemDatabase>();
             builder.Services.AddScoped<IRepository<ReservationPoint, int>, ReservationPointRepository>();
-            builder.Services.AddScoped<IRepository<Reservation, int>, ReservationRepository>();
+            builder.Services.AddScoped<IRepository<Reservation, string>, ReservationRepository>();
             builder.Services.AddScoped<IRepository<User, string>, UserRepository>();
             builder.Services.AddScoped<IRepository<VehicleType, int>, VehicleTypeRepository>();
             builder.Services.AddScoped<IRepository<Vehicle, int>, VehicleRepository>();

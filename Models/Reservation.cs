@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace UBBBikeRentalSystem.Models {
     public class Reservation {
         [Key]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [Required(ErrorMessage = "Pojazd jest wymagany.")]
         [ForeignKey("Vehicle")]
@@ -17,7 +17,6 @@ namespace UBBBikeRentalSystem.Models {
         [ForeignKey("ReservationPoint")]
         public int ReservationPointID { get; set; }
         public virtual ReservationPoint ReservationPoint { get; set; }
-
         
         [ForeignKey("ReturnPoint")]
         public int ReturnPointID { get; set; }

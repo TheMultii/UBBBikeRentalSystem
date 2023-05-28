@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@model UBBBikeRentalSystem.Areas.Users.ViewModels.MyReservationsViewModel
+
+<!DOCTYPE html>
 <html lang="pl" class="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="~/img/favicon.png" />
-    <title>UBB Bike Rental System - Users Panel</title>
+    <title>UBB Bike Rental System - User Dashboard</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -33,9 +35,17 @@
                 <li class="mt-0.5 w-full">
                     <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="/users">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-orange-500 ni ni-controller text-sm"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Moje rezerwacje</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/users/makereservation">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
                             <i class="relative top-0 leading-normal text-orange-500 ni ni-spaceship text-sm"></i>
                         </div>
-                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Rezerwacje</span>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dodaj rezerwację</span>
                     </a>
                 </li>
             </ul>
@@ -52,7 +62,7 @@
                         <li class="leading-normal text-sm">
                             <span class="text-white opacity-50">Users</span>
                         </li>
-                        <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Rezerwacje</li>
+                        <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Moje rezerwacje</li>
                     </ol>
                 </nav>
                 <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto justify-end">
@@ -60,7 +70,7 @@
                         <li class="flex items-center">
                             <a href="/account" class="block px-0 py-2 font-semibold text-white transition-all ease-nav-brand text-sm">
                                 <i class="fa fa-user sm:mr-1"></i>
-                                <span class="hidden sm:inline">@Model.Name</span>
+                                <span class="hidden sm:inline">@Model.LoggedInUser.Name</span>
                             </a>
                         </li>
                     </ul>
