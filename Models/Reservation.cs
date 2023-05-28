@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Models {
     public class Reservation {
@@ -9,6 +10,10 @@ namespace UBBBikeRentalSystem.Models {
         [Required(ErrorMessage = "Pojazd jest wymagany.")]
         [ForeignKey("Vehicle")]
         public Vehicle VehicleID { get; set; }
+
+        [Required(ErrorMessage = "Status zamówienia jest wymagany.")]
+        [Display(Name = "Status zamówienia")]
+        public ReservationStatusEnum ReservationStatus { get; set; }
 
         [Required(ErrorMessage = "Użytkownik jest wymagany.")]
         [ForeignKey("User")]

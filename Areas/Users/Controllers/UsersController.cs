@@ -94,6 +94,7 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
                 VehicleID = selectedVehicle,
                 ReservationPoint = selectedReservationPoint,
                 ReservationDate = DateTime.Now,
+                ReservationStatus = ReservationStatusEnum.NewReservation,
                 UserID = _userManager.FindByNameAsync(User?.Identity?.Name ?? "").Result ?? throw new Exception("Brak takiego użytkownika w DB")
             };
 
