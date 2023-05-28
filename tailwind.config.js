@@ -4,7 +4,8 @@ module.exports = {
         './Pages/**/*.cshtml',
         './Views/**/*.cshtml',
         './Areas/Identity/Pages/**/*.cshtml',
-        './Areas/Admin/Views/**/*.cshtml'
+        './Areas/Admin/Views/**/*.cshtml',
+        './Areas/Users/Views/**/*.cshtml'
     ],
     theme: {
         screens: {

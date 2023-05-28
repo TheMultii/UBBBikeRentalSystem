@@ -1,4 +1,33 @@
 ﻿@model UBBBikeRentalSystem.Areas.Users.ViewModels.MyReservationsViewModel
+@using UBBBikeRentalSystem.ViewModels;
+
+@{
+    string StatusToString(ReservationStatusEnum reservationStatusEnum) {
+        switch (reservationStatusEnum) {
+            case ReservationStatusEnum.NewReservation:
+                return "Nowa rezerwacja";
+            case ReservationStatusEnum.InProgress:
+                return "W trakcie";
+            case ReservationStatusEnum.Finished:
+                return "Zakończony";
+            default:
+                return "Nieznany";
+        }
+    }
+
+    string StatusToColor(ReservationStatusEnum reservationStatusEnum) {
+        switch (reservationStatusEnum) {
+            case ReservationStatusEnum.NewReservation:
+                return "text-green-500";
+            case ReservationStatusEnum.InProgress:
+                return "text-indigo-500";
+            case ReservationStatusEnum.Finished:
+                return "text-slate-500";
+            default:
+                return "text-rose-700";
+        }
+    }
+}
 
 <!DOCTYPE html>
 <html lang="pl" class="dark">
@@ -16,11 +45,27 @@
     <link href="~/css/nucleo-svg.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link href="~/css/admin-dashboard.min.css" rel="stylesheet" />
+    <style>
+        .text-slate-500 {
+            color: rgb(100 116 139);
+        }
+        .text-green-500 {
+            color: rgb(34 197 94);
+        }
+        .text-indigo-500 {
+            color: rgb(99 102 241);
+        }
+        .text-indigo-700 {
+            color: rgb(190 18 60);
+        }
+    </style>
 
     <script src="~/js/popper.min.js"></script>
 </head>
 <body class="m-0 font-sans antialiased font-normal bg-[#181818] text-base leading-defaulttext-slate-500">
-    <div class="absolute w-full bg-blue-500 dark:hidden min-h-75"></div>
+    <div class="absolute bg-y-50 w-full top-0 bg-[url('https://v4.api.mganczarczyk.pl/v4/ras/moescape/redirect?safety')] bg-cover min-h-75">
+        <span class="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-60"></span>
+    </div>
 
     <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 admin-hide border-0 shadow-xl dark:shadow-none dark:bg-[#1c1c1c] max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
         <div class="h-19">
@@ -100,8 +145,112 @@
             <div class="flex flex-wrap -mx-3">
                 <div class="w-full max-w-full px-3 shrink-0">
                     <div class="relative flex flex-col min-w-0 break-words border-0 shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                        
+                        <div class="overflow-x-auto rounded-lg">
+                            <table class="min-w-full divide-y dark:divide-gray-400">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            ID
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pojazd
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Status rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pkt. rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Data rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pkt. zwrotu
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Data zwrotu
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y">
+                                    @foreach (var item in Model.Reservations) {
+                                        <tr>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.Vehicle.Model) @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium @StatusToColor(item.ReservationStatus)">
+                                                        @StatusToString(item.ReservationStatus)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.ReservationPoint.Name) (@Html.DisplayFor(modelItem => item.ReservationPoint.City))
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.ReservationDate)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @if(item.ReturnPoint != null) {
+                                                            <span>@item.ReturnPoint.Name</span> <span>–</span> <span>@item.ReturnPoint.City</span>
+                                                        }
+                                                        else {
+                                                           <span>N/A</span>
+                                                        }
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @if (item.ReturnDate != null) {
+                                                            @Html.DisplayFor(modelItem => item.ReturnDate)
+                                                        } else {
+                                                            <span>N/A</span>
+                                                        }
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Model.Reservations.Count() == 0) {
+                                        <tr>
+                                            <td colspan="8" class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
+                                                Brak rezerwacji
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table> 
+                        </div>
                     </div>
+                    @if (Model.Reservations.Count() > 0) {
+                        <p class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
+                            Liczba rezerwacji: @Model.Reservations.Count()
+                        </p>
+                    }
                 </div>
             </div>
         </div>
