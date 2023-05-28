@@ -79,8 +79,31 @@
         </nav>
 
 
-        <div class="w-full px-6 py-6 mx-auto">
-            <img src="https://api.mganczarczyk.pl/tairiku/random/streetmoe?safety=true" />
+        <div class="relative w-full mx-auto mt-60">
+            <div class="relative flex flex-col flex-auto min-w-0 p-4 mx-6 overflow-hidden break-words border-0 dark:bg-[#1c1c1c] dark:shadow-dark-xl shadow-3xl rounded-2xl bg-clip-border">
+                <div class="flex flex-wrap -mx-3">
+                    <div class="flex-none w-auto max-w-full px-3">
+                        <div class="relative inline-flex items-center justify-center text-white transition-all duration-200 ease-in-out text-base h-19 w-19 rounded-xl">
+                            <img src="https://v4.api.mganczarczyk.pl/v4/users/name/TheMultii/profile" alt="profile_image" class="w-full shadow-2xl rounded-xl" />
+                        </div>
+                    </div>
+                    <div class="flex-none w-auto max-w-full px-3 my-auto">
+                        <div class="h-full">
+                            <h5 class="mb-1 dark:text-white">@Model.LoggedInUser.Name</h5>
+                            <p class="mb-0 font-semibold leading-normal dark:text-white dark:opacity-60 text-sm">@Model.LoggedInUser.Email</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full p-6 mx-auto">
+            <div class="flex flex-wrap -mx-3">
+                <div class="w-full max-w-full px-3 shrink-0">
+                    <div class="relative flex flex-col min-w-0 break-words border-0 shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
