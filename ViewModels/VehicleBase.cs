@@ -10,10 +10,6 @@ namespace UBBBikeRentalSystem.ViewModels {
         [Display(Name = "Nazwa")]
         public string? Name { get; set; }
 
-        [Required(ErrorMessage = "Status zamówienia jest wymagany.")]
-        [Display(Name = "Status zamówienia")]
-        public ReservationStatusEnum ReservationStatus { get; set; }
-
         [Required(ErrorMessage = "Pole Model jest wymagane.")]
         [StringLength(50, ErrorMessage = "Pole Model musi mieć długość od {2} do {1} znaków.", MinimumLength = 3)]
         public string? Model { get; set; }

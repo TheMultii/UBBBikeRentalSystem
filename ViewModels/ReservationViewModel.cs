@@ -10,6 +10,10 @@ namespace UBBBikeRentalSystem.ViewModels {
         [Required(ErrorMessage = "Pole Pojazd jest wymagane.")]
         public VehicleItemViewModel Vehicle { get; set; }
 
+        [Required(ErrorMessage = "Status zamówienia jest wymagany.")]
+        [Display(Name = "Status zamówienia")]
+        public ReservationStatusEnum ReservationStatus { get; set; }
+
         [Display(Name = "Użytkownik")]
         [Required(ErrorMessage = "Pole Użytkownik jest wymagane.")]
         public UserViewModel User { get; set; }
