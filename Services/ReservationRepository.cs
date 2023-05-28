@@ -11,7 +11,7 @@ namespace UBBBikeRentalSystem.Services {
         }
 
         public void Add(Reservation reservation) {
-            reservation.ID = _db.Reservations.Max(r => r.ID) + 1;
+            reservation.ID = Guid.NewGuid().ToString();
             _db.Reservations.Add(reservation);
             _db.SaveChanges();
         }
