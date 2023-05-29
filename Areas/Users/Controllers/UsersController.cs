@@ -107,9 +107,15 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
         }
 
         [HttpGet]
-        public IActionResult DeleteReservation(string id) {
+        public async Task<IActionResult> DeleteReservation(string id) {
+            User? loggedInUser = await GetLoggedInUser();
+            if (loggedInUser == null) return Forbid();
+
             Reservation? reservation = _reservationRepository.Get(id);
             if (reservation == null) return NotFound();
+
+            //nie pozwól, by użytkownik usuwał rezerwacje innych użytkowników
+            if(reservation.UserID.Id != loggedInUser.Id) return Forbid();
 
             if (reservation.ReservationStatus == ReservationStatusEnum.NewReservation)
                 _reservationRepository.Delete(id);
