@@ -47,7 +47,7 @@ namespace UBBBikeRentalSystem.Services {
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
-                .OrderBy(r => r.ID)
+                .OrderBy(r => r.CreatedDate)
                 .Where(r => r.UserID.Id == userID)
                 .ToList();
             foreach (var r in l) {
@@ -61,7 +61,7 @@ namespace UBBBikeRentalSystem.Services {
                 .Include(r => r.VehicleID)
                 .Include(r => r.UserID)
                 .Include(r => r.ReservationPoint)
-                .OrderBy(r => r.ID)
+                .OrderBy(r => r.CreatedDate)
                 .ToList();
             foreach (var r in l) {
                 r.ReturnPoint = _db.Reservations.Where(x => x.ID == r.ID).Select(x => x.ReturnPoint).FirstOrDefault();

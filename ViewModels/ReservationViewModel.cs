@@ -33,5 +33,9 @@ namespace UBBBikeRentalSystem.ViewModels {
         [Display(Name = "Data Zwrotu")]
         [Range(typeof(DateTime), "1/1/2000", "31/12/2100", ErrorMessage = "Data Zwrotu musi być pomiędzy 1.01.2000 a 31.12.2100")]
         public DateTime? ReturnDate { get; set; }
+
+        [Display(Name = "Data utworzenia")]
+        [Range(typeof(DateTime), "1/1/2000", "31/12/2100", ErrorMessage = "Data Utworzenia musi być pomiędzy 1.01.2000 a 31.12.2100")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

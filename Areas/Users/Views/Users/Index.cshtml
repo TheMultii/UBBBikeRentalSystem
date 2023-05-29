@@ -27,6 +27,8 @@
                 return "text-rose-700";
         }
     }
+
+    string ShortenGUID(string guid) => guid.Split('-')[0];
 }
 
 <!DOCTYPE html>
@@ -178,7 +180,7 @@
                                             <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
                                                 <div>
                                                     <h2 class="text-[14px] m-0 font-medium text-white">
-                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                        @ShortenGUID(item.ID)
                                                     </h2>
                                                 </div>
                                             </td>

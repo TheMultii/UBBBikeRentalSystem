@@ -33,5 +33,8 @@ namespace UBBBikeRentalSystem.Models {
 
         [Display(Name = "Data zwrotu")]
         public DateTime? ReturnDate { get; set; }
+
+        [Display(Name = "Data utworzenia")]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }
