@@ -1,1 +1,304 @@
-﻿<p>Current reservations</p>
+﻿@model UBBBikeRentalSystem.Areas.Admin.ViewModels.AreaAdminUserReservationsViewModel;
+@using UBBBikeRentalSystem.ViewModels;
+
+@{
+    string StatusToString(ReservationStatusEnum reservationStatusEnum) {
+        switch (reservationStatusEnum) {
+            case ReservationStatusEnum.NewReservation:
+                return "Nowa rezerwacja";
+            case ReservationStatusEnum.InProgress:
+                return "W trakcie";
+            case ReservationStatusEnum.Finished:
+                return "Zakończony";
+            default:
+                return "Nieznany";
+        }
+    }
+
+    string StatusToColor(ReservationStatusEnum reservationStatusEnum) {
+        switch (reservationStatusEnum) {
+            case ReservationStatusEnum.NewReservation:
+                return "text-green-500";
+            case ReservationStatusEnum.InProgress:
+                return "text-indigo-500";
+            case ReservationStatusEnum.Finished:
+                return "text-slate-500";
+            default:
+                return "text-rose-700";
+        }
+    }
+
+    string ShortenGUID(string guid) => guid.Split('-')[0];
+}
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="~/img/favicon.png" />
+    <title>UBB Bike Rental System - Admin Panel</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link href="~/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="~/css/nucleo-svg.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link href="~/css/admin-dashboard.min.css" rel="stylesheet" />
+    <style>
+        .text-slate-500 {
+            color: rgb(100 116 139);
+        }
+
+        .text-green-500 {
+            color: rgb(34 197 94);
+        }
+
+        .text-indigo-500 {
+            color: rgb(99 102 241);
+        }
+
+        .text-indigo-700 {
+            color: rgb(190 18 60);
+        }
+    </style>
+
+    <script src="~/js/popper.min.js"></script>
+</head>
+<body class="m-0 font-sans antialiased font-normal bg-[#181818] text-base leading-defaulttext-slate-500">
+    <div class="absolute bg-y-50 w-full top-0 bg-[url('https://v4.api.mganczarczyk.pl/v4/ras/moescape/redirect?safety')] bg-cover min-h-75">
+        <span class="absolute top-0 left-0 w-full h-full bg-indigo-500 opacity-60"></span>
+    </div>
+
+    <aside class="fixed inset-y-0 flex-wrap items-center justify-between block w-full p-0 my-4 antialiased transition-transform duration-200 admin-hide border-0 shadow-xl dark:shadow-none bg-[#1c1c1c] max-w-64 ease-nav-brand z-990 xl:ml-6 rounded-2xl xl:left-0 xl:translate-x-0" aria-expanded="false">
+        <div class="h-19">
+            <i class="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times dark:text-white text-slate-400 xl:hidden" sidenav-close></i>
+            <p class="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700 text-center">
+                <span class="ml-1 font-semibold transition-all duration-200 ease-nav-brand">UBB Bike Rental System</span>
+            </p>
+        </div>
+        <hr class="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent" />
+        <div class="items-center block w-auto max-h-screen h-sidenav grow basis-full">
+            <ul class="flex flex-col pl-0 mb-0">
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/admin">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-blue-500 ni ni-tv-2 text-sm"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dashboard</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/admin/users">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-orange-500 ni ni-single-02 text-sm"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Użytkownicy</span>
+                    </a>
+                </li>
+
+                <li class="w-full mt-4">
+                    <h6 class="pl-6 ml-2 font-bold leading-tight uppercase dark:text-white text-xs opacity-60">Rezerwacje klientów</h6>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="/admin/reservations">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-slate-700 text-sm ni ni-planet"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Rezerwacje</span>
+                    </a>
+                </li>
+
+                <li class="w-full mt-4">
+                    <h6 class="pl-6 ml-2 font-bold leading-tight uppercase dark:text-white text-xs opacity-60">Konto</h6>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/account">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-slate-700 text-sm ni ni-single-02"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Profil</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/login">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-orange-500 text-sm ni ni-single-copy-04"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Zaloguj się</span>
+                    </a>
+                </li>
+                <li class="mt-0.5 w-full">
+                    <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/register">
+                        <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
+                            <i class="relative top-0 leading-normal text-cyan-500 text-sm ni ni-collection"></i>
+                        </div>
+                        <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Zarejestruj się</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="relative h-full max-h-screen transition-all duration-200 ease-in-out xl:ml-68">
+        <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
+            <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+                <nav>
+
+                    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+                        <li class="leading-normal text-sm">
+                            <span class="text-white opacity-50">Admin</span>
+                        </li>
+                        <li class="text-sm pl-2 capitalize leading-normal text-white before:float-left before:pr-2 before:text-white before:content-['/']" aria-current="page">Rezerwacje</li>
+                    </ol>
+                </nav>
+                <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto justify-end">
+                    <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+                        <li class="flex items-center">
+                            <a href="/account" class="block px-0 py-2 font-semibold text-white transition-all ease-nav-brand text-sm">
+                                <i class="fa fa-user sm:mr-1"></i>
+                                <span class="hidden sm:inline">@Model.loggedInUser.Name</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="w-full p-6 mx-auto mt-60">
+            <div class="flex flex-wrap -mx-3">
+                <div class="w-full max-w-full px-3 shrink-0">
+                    <div class="relative flex flex-col min-w-0 break-words border-0 shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border">
+                        <div class="overflow-x-auto rounded-lg">
+                            <table class="min-w-full divide-y dark:divide-gray-400">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            ID
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Użytkownik
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pojazd
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Status rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pkt. rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Data rezerwacji
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Pkt. zwrotu
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Data zwrotu
+                                        </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Akcja
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y">
+                                    @foreach (var item in Model.reservations) {
+                                        <tr>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @ShortenGUID(item.ID)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.User.Name)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.Vehicle.Model) @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium @StatusToColor(item.ReservationStatus)">
+                                                        @StatusToString(item.ReservationStatus)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.ReservationPoint.Name) (@Html.DisplayFor(modelItem => item.ReservationPoint.City))
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @Html.DisplayFor(modelItem => item.ReservationDate)
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @if (item.ReturnPoint != null) {
+                                                            <span>@item.ReturnPoint.Name</span> <span>–</span> <span>@item.ReturnPoint.City</span>
+                                                        } else {
+                                                            <span>N/A</span>
+                                                        }
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @if (item.ReturnDate != null) {
+                                                            @Html.DisplayFor(modelItem => item.ReturnDate)
+                                                        } else {
+                                                            <span>N/A</span>
+                                                        }
+                                                    </h2>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <a href="/Admin/EditReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
+                                                       Edytuj
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Model.reservations.Count() == 0) {
+                                        <tr>
+                                            <td colspan="8" class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
+                                                Brak rezerwacji
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
+                        Liczba rezerwacji: @Model.reservations.Count()
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="~/js/plugins/perfect-scrollbar.min.js" async></script>
+<script src="~/js/admin-dashboard.js" async></script>
+</html>

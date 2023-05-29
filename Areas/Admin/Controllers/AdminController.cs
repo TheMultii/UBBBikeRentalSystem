@@ -12,11 +12,11 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
     [Area("Admin"), Authorize(Roles = "Administrator")]
     public class AdminController : Controller {
         private readonly IRepository<User, string> _userRepository;
-        private readonly IRepository<Reservation, int> _reservationRepository;
+        private readonly IRepository<Reservation, string> _reservationRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public AdminController(IRepository<User, string> uDB, IRepository<Reservation, int> rDB, IMapper mapper, UserManager<User> userManager) {
+        public AdminController(IRepository<User, string> uDB, IRepository<Reservation, string> rDB, IMapper mapper, UserManager<User> userManager) {
             _userRepository = uDB;
             _reservationRepository = rDB;
             _mapper = mapper;
@@ -133,6 +133,27 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
             }
 
             return RedirectToAction("Users");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Reservations() {
+            User? loggedInUser = await GetLoggedInUser();
+            if (loggedInUser == null) return Forbid();
+
+            List<Reservation> reservations = _reservationRepository.GetAll();
+            List<ReservationViewModel> reservationVMs = new();
+            foreach (Reservation reservation in reservations) {
+                reservationVMs.Add(_mapper.Map<ReservationViewModel>(reservation));
+            }
+
+            reservationVMs = reservationVMs.OrderBy(r => r.ReservationStatus).ThenBy(r => r.ReservationDate).ToList();
+
+            AreaAdminUserReservationsViewModel areaAdminUserReservationsViewModel = new() {
+                reservations = reservationVMs,
+                loggedInUser = _mapper.Map<UserViewModel>(loggedInUser)
+            };
+
+            return View();
         }
     }
 }
