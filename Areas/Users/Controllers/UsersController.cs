@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using UBBBikeRentalSystem.Areas.Users.ViewModels;
@@ -8,7 +9,7 @@ using UBBBikeRentalSystem.Services;
 using UBBBikeRentalSystem.ViewModels;
 
 namespace UBBBikeRentalSystem.Areas.Users.Controllers {
-    [Area("Users")]
+    [Area("Users"), Authorize(Roles = "Użytkownik")]
     public class UsersController : Controller {
         private readonly IRepository<Vehicle, int> _vehicleRepository;
         private readonly IRepository<ReservationPoint, int> _reservationPointRepository;
@@ -39,6 +40,7 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
         public async Task<IActionResult> Index() {
             User? loggedInUser = await GetLoggedInUser();
             if (loggedInUser == null) return Forbid();
+
             UserViewModel userVM = _mapper.Map<UserViewModel>(loggedInUser);
 
             List<Reservation> reservations = _reservationRepository.GetUsers(loggedInUser.Id);
@@ -60,6 +62,7 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
         public async Task<IActionResult> MakeReservation() {
             User? loggedInUser = await GetLoggedInUser();
             if (loggedInUser == null) return Forbid();
+
             UserViewModel userVM = _mapper.Map<UserViewModel>(loggedInUser);
 
             List<Vehicle> vehicles = _vehicleRepository.GetAll();
@@ -87,9 +90,10 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
 
         [HttpPost]
         public IActionResult MakeReservation(POST_MakeReservationViewModel postModel) {
+
             Vehicle selectedVehicle = _vehicleRepository.Get(postModel.SelectedVehicle) ?? throw new Exception("Brak takiego pojazdu w DB");
             ReservationPoint selectedReservationPoint = _reservationPointRepository.Get(postModel.SelectedReservationPoint) ?? throw new Exception("Brak takiego punktu w DB");
-            
+
             Reservation reservation = new() {
                 VehicleID = selectedVehicle,
                 ReservationPoint = selectedReservationPoint,
@@ -99,6 +103,17 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
             };
 
             _reservationRepository.Add(reservation);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteReservation(string id) {
+            Reservation? reservation = _reservationRepository.Get(id);
+            if (reservation == null) return NotFound();
+
+            if (reservation.ReservationStatus == ReservationStatusEnum.NewReservation)
+                _reservationRepository.Delete(id);
 
             return RedirectToAction("Index");
         }

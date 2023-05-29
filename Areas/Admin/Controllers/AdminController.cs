@@ -207,5 +207,19 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
 
             return RedirectToAction("Reservations");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteReservation(string id) {
+            User? loggedInUser = await GetLoggedInUser();
+            if (loggedInUser == null) return Forbid();
+
+            Reservation? reservation = _reservationRepository.Get(id);
+            if (reservation == null) return NotFound();
+
+            if (reservation.ReservationStatus != ReservationStatusEnum.NewReservation) RedirectToAction("Index");
+
+            _reservationRepository.Delete(id);
+            return RedirectToAction("Reservations");
+        }
     }
 }
