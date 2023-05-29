@@ -271,11 +271,13 @@
                                                 </div>
                                             </td>
                                             <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                                <div>
-                                                    <a href="/Admin/EditReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
-                                                       Edytuj
-                                                    </a>
-                                                </div>
+                                                @if(item.ReservationStatus != ReservationStatusEnum.Finished) {
+                                                    <div>
+                                                        <a href="/Admin/EditReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
+                                                            Edytuj
+                                                        </a>
+                                                    </div>
+                                                }
                                             </td>
                                         </tr>
                                     }
