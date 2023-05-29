@@ -155,6 +155,20 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
 
             return View(areaAdminUserReservationsViewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> EditReservation(string id) {
+            User? loggedInUser = await GetLoggedInUser();
+            if (loggedInUser == null) return Forbid();
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditReservation(string id, string _) {
+            User? loggedInUser = await GetLoggedInUser();
+            if (loggedInUser == null) return Forbid();
+
             return View();
         }
     }
