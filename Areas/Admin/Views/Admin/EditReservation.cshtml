@@ -1,4 +1,5 @@
-﻿@model UBBBikeRentalSystem.Areas.Admin.ViewModels.GET_AreaAdminEditUserReservationViewModel;
+﻿@using UBBBikeRentalSystem.ViewModels;
+@model UBBBikeRentalSystem.Areas.Admin.ViewModels.GET_AreaAdminEditUserReservationViewModel;
 <!DOCTYPE html>
 <html lang="pl" class="dark">
 <head>
@@ -139,16 +140,11 @@
             <div class="flex flex-wrap -mx-3">
                 <div class="w-full max-w-full px-3 shrink-0">
                     <div class="relative flex flex-col min-w-0 break-words border-0 shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                        <div class="overflow-x-auto rounded-lg">
-                            <table class="min-w-full divide-y dark:divide-gray-400">
-                                <thead>
-                                    <tr>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y">
-                                </tbody>
-                            </table>
-                        </div>
+                        @if(Model.reservation.ReservationStatus == ReservationStatusEnum.NewReservation) {
+                            
+                        } else if(Model.reservation.ReservationStatus == ReservationStatusEnum.InProgress) {
+                            
+                        }
                     </div>
                 </div>
             </div>
