@@ -21,6 +21,28 @@
                             <div class="col-span-12 md:mb-7">
                                 <div class="flow-root">
                                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                        @if (_roles.Contains("Administrator") || _roles.Contains("Użytkownik")) {
+                                            <li class="py-3 sm:py-4">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="flex-1 min-w-0">
+                                                        @if (_roles.Contains("Administrator")) {
+                                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" href="/Users">
+                                                                Panel użytkownika
+                                                            </a>
+                                                        }
+                                                        @if (_roles.Contains("Administrator") && _roles.Contains("Użytkownik")) {
+                                                            <span> | </span>
+                                                        }
+                                                        @if (_roles.Contains("Użytkownik")) {
+                                                            <a class="text-sm text-gray-500 truncate dark:text-gray-400" href="/Admin">
+                                                                Panel administratora
+                                                            </a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+
                                         <li class="py-3 sm:py-4">
                                             <div class="flex items-center space-x-4">
                                                 <div class="flex-1 min-w-0">

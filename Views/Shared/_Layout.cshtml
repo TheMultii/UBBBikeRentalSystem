@@ -1,4 +1,7 @@
-﻿@using UBBBikeRentalSystem.Models
+﻿@using Microsoft.AspNetCore.Identity
+@using UBBBikeRentalSystem.Models
+
+@inject UserManager<UBBBikeRentalSystem.Models.User> UserManager
 
 @{
     string currentControllerPath = Context.GetRouteData().Values?["controller"]?.ToString() ?? "";
@@ -8,6 +11,16 @@
     var _values = Context.GetRouteData().Values;
 
     var _loggedInUsername = User?.Identity?.Name ?? "";
+    User? _user = null;
+    IList<string> _roles = new List<string>();
+
+    if (User?.Identity?.IsAuthenticated == true) {
+        _user = await UserManager.GetUserAsync(User);
+        if (_user != null) {
+            _roles = await UserManager.GetRolesAsync(_user);
+        }
+    }
+
     if (User?.Identity?.IsAuthenticated == false && _loggedInUsername != "") {
         _loggedInUsername = "";
     }
@@ -89,14 +102,26 @@
                         </a>
                     </li>
                 </ul>
-                <div class="it-last flex justify-end md:hidden">
-                    <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                <ul class="it-last flex justify-end md:hidden">
+                    <li class="relative inline-block">
+                        <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
+                                    before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
+                                    @(currentControllerPath == "Account" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
+                           href="/@(_loggedInUsername != "" ? "Account" : "Login")">
+                            @(_loggedInUsername != "" ? "Konto" : "Zaloguj")
+                        </a>
+                    </li>
+                    @if(_roles.Contains("Administrator") || _roles.Contains("Użytkownik")) {
+                        <li class="relative inline-block">
+                            <a class="relative text-[16px] lg:text-[14px] p-[20px] xl:px-[6px] text-white block capitalize font-base-font font-medium
                                 before:absolute before:left-0 before:bottom-0 before:w-full before:h-[4px] before:bg-[#59C378] before:content
-                                @(currentControllerPath == "Account" ? "before:opacity-1 before:visible before:transition-all before:rounded-[3px]" : "before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible")"
-                       href="/@(_loggedInUsername != "" ? "Account" : "Login")">
-                        @(_loggedInUsername != "" ? "Konto" : "Zaloguj")
-                    </a>
-                </div>
+                                before:opacity-0 before:invisible before:transition-all before:rounded-[3px] hover:before:opacity-100 hover:before:visible"
+                                href="/@(_roles.Contains("Administrator") ? "Admin" : "Users")">
+                                    @(_roles.Contains("Administrator") ? "⚙️" : "🚲")
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>
