@@ -161,13 +161,24 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
             User? loggedInUser = await GetLoggedInUser();
             if (loggedInUser == null) return Forbid();
 
-            return View();
+            Reservation? reservation = _reservationRepository.Get(id);
+            if (reservation == null) return NotFound();
+
+            GET_AreaAdminEditUserReservationViewModel areaAdminEditReservationViewModel = new() {
+                reservation = _mapper.Map<ReservationViewModel>(reservation),
+                loggedInUser = _mapper.Map<UserViewModel>(loggedInUser)
+            };
+
+            return View(areaAdminEditReservationViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditReservation(string id, string _) {
+        public async Task<IActionResult> EditReservation(string id, POST_AreaAdminEditUserReservationViewModel areaAdminEditUserReservationViewModel) {
             User? loggedInUser = await GetLoggedInUser();
             if (loggedInUser == null) return Forbid();
+
+            Reservation? reservation = _reservationRepository.Get(id);
+            if (reservation == null) return NotFound();
 
             return View();
         }
