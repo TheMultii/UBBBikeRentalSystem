@@ -180,6 +180,8 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
             Reservation? reservation = _reservationRepository.Get(id);
             if (reservation == null) return NotFound();
 
+            if(reservation.ReservationStatus == ReservationStatusEnum.Finished) RedirectToAction("Index");
+
             return View();
         }
     }
