@@ -188,7 +188,7 @@ namespace UBBBikeRentalSystem {
                     Id = Guid.NewGuid().ToString()
                 };
                 userManager.CreateAsync(user_admin, "Admin123!").Wait();
-                userManager.AddToRoleAsync(user_admin, "Administrator").Wait();
+                userManager.AddToRolesAsync(user_admin, new List<string>() { "Administrator", "Użytkownik" }).Wait();
 
                 var user_operator = new User {
                     UserName = "Operator",
