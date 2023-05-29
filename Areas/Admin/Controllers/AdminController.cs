@@ -13,12 +13,14 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
     public class AdminController : Controller {
         private readonly IRepository<User, string> _userRepository;
         private readonly IRepository<Reservation, string> _reservationRepository;
+        private readonly IRepository<ReservationPoint, int> _reservationPointRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
 
-        public AdminController(IRepository<User, string> uDB, IRepository<Reservation, string> rDB, IMapper mapper, UserManager<User> userManager) {
+        public AdminController(IRepository<User, string> uDB, IRepository<Reservation, string> rDB, IRepository<ReservationPoint, int> rpDB, IMapper mapper, UserManager<User> userManager) {
             _userRepository = uDB;
             _reservationRepository = rDB;
+            _reservationPointRepository = rpDB;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -164,9 +166,20 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
             Reservation? reservation = _reservationRepository.Get(id);
             if (reservation == null) return NotFound();
 
+            if (reservation.ReservationStatus == ReservationStatusEnum.Finished) RedirectToAction("Index");
+
+            List<ReservationPointViewModel> reservationPointViewModels = new();
+            if(reservation.ReservationStatus == ReservationStatusEnum.InProgress) {
+                List<ReservationPoint> reservationPoints = _reservationPointRepository.GetAll();
+                foreach (ReservationPoint reservationPoint in reservationPoints) {
+                    reservationPointViewModels.Add(_mapper.Map<ReservationPointViewModel>(reservationPoint));
+                }
+            }
+
             GET_AreaAdminEditUserReservationViewModel areaAdminEditReservationViewModel = new() {
                 reservation = _mapper.Map<ReservationViewModel>(reservation),
-                loggedInUser = _mapper.Map<UserViewModel>(loggedInUser)
+                loggedInUser = _mapper.Map<UserViewModel>(loggedInUser),
+                reservationPoints = reservationPointViewModels
             };
 
             return View(areaAdminEditReservationViewModel);
@@ -182,7 +195,17 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
 
             if(reservation.ReservationStatus == ReservationStatusEnum.Finished) RedirectToAction("Index");
 
-            return View();
+            if(areaAdminEditUserReservationViewModel.isApproved == true) {
+                reservation.ReservationStatus = ReservationStatusEnum.InProgress;
+            } else {
+                reservation.ReservationStatus = ReservationStatusEnum.Finished;
+                reservation.ReturnDate = areaAdminEditUserReservationViewModel.SelectedReturnDate;
+                reservation.ReturnPoint = _reservationPointRepository.Get(areaAdminEditUserReservationViewModel.SelectedReturnPoint)
+                    ?? throw new Exception("Brak takiego punktu w DB.");
+            }
+            _reservationRepository.Update(reservation);
+
+            return RedirectToAction("Reservations");
         }
     }
 }

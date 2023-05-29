@@ -104,7 +104,7 @@
                 <li class="mt-0.5 w-full">
                     <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="/admin/reservations">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="relative top-0 leading-normal text-slate-700 text-sm ni ni-planet"></i>
+                            <i class="relative top-0 leading-normal text-green-600 text-sm ni ni-planet"></i>
                         </div>
                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Rezerwacje</span>
                     </a>
@@ -199,7 +199,7 @@
                                             Data zwrotu
                                         </th>
                                         <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
-                                            Akcja
+                                            Akcje
                                         </th>
                                     </tr>
                                 </thead>
@@ -275,6 +275,8 @@
                                                     <div>
                                                         <a href="/Admin/EditReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
                                                             Edytuj
+                                                        </a> | <a href="/Admin/DeleteReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
+                                                            Usuń
                                                         </a>
                                                     </div>
                                                 }

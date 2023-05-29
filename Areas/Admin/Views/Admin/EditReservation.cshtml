@@ -57,7 +57,7 @@
                 <li class="mt-0.5 w-full">
                     <a class="py-2.7 bg-blue-500/13 dark:text-white dark:opacity-80 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap rounded-lg px-4 font-semibold text-slate-700 transition-colors" href="/admin/reservations">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="relative top-0 leading-normal text-slate-700 text-sm ni ni-planet"></i>
+                            <i class="relative top-0 leading-normal text-green-600 text-sm ni ni-planet"></i>
                         </div>
                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Rezerwacje</span>
                     </a>
@@ -98,7 +98,6 @@
         <nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all ease-in shadow-none duration-250 rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="false">
             <div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
                 <nav>
-
                     <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
                         <li class="leading-normal text-sm">
                             <span class="text-white opacity-50">Admin</span>
@@ -140,11 +139,57 @@
             <div class="flex flex-wrap -mx-3">
                 <div class="w-full max-w-full px-3 shrink-0">
                     <div class="relative flex flex-col min-w-0 break-words border-0 shadow-xl dark:bg-[#1c1c1c] dark:shadow-dark-xl rounded-2xl bg-clip-border">
-                        @if(Model.reservation.ReservationStatus == ReservationStatusEnum.NewReservation) {
-                            
-                        } else if(Model.reservation.ReservationStatus == ReservationStatusEnum.InProgress) {
-                            
-                        }
+                        <form asp-action="EditReservation" asp-route-id="@Model.reservation.ID" method="post">
+                            @if(Model.reservation.ReservationStatus == ReservationStatusEnum.NewReservation) {
+                                <div class="flex-auto p-6">
+                                    <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Zatwierdź rezerwację</p>
+                                    <div class="flex flex-wrap -mx-3">
+                                        <div class="w-full max-w-full px-3 shrink-0">
+                                            <div class="mb-4">
+                                                <label for="isApproved" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Status rezerwacji</label>
+                                                <input value="Nowa rezerwacja" type="text" disabled class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+                                                <input type="checkbox" value="true" name="isApproved" checked class="hidden" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid">
+                                        <div class="flex items-center">
+                                            <input type="submit" class="inline-block px-8 py-2 mb-4 ml-0 mt-[16px] font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85" value="Zaakceptuj rezerwację" />
+                                        </div>
+                                    </div>
+                                </div>
+                            } else if(Model.reservation.ReservationStatus == ReservationStatusEnum.InProgress) {
+                                <div class="flex-auto p-6">
+                                    <p class="leading-normal uppercase dark:text-white dark:opacity-60 text-sm">Zakończ rezerwację</p>
+                                    <div class="flex flex-wrap -mx-3">
+                                        <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
+                                            <div class="mb-4">
+                                                <label for="SelectedReturnPoint" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Punkt rezerwacji</label>
+                                                <select name="SelectedReturnPoint" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none">
+                                                    @foreach (var reservationPoint in Model.reservationPoints) {
+                                                        <option value="@reservationPoint.ID">@reservationPoint.Name - @reservationPoint.City</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="w-full max-w-full px-3 shrink-0 md:w-6/12 md:flex-0">
+                                            <div class="mb-4">
+                                                <label for="SelectedReturnDate" class="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Data rezerwacji</label>
+                                                <input id="dtlocal" type="datetime-local" name="SelectedReturnDate" class="focus:shadow-primary-outline dark:bg-[#1c1c1c] dark:text-white text-sm leading-5.6 ease block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-blue-500 focus:outline-none" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-black/12.5 rounded-t-2xl border-b-0 border-solid">
+                                        <div class="flex items-center">
+                                            <input type="submit" class="inline-block px-8 py-2 mb-4 ml-0 mt-[16px] font-bold leading-normal text-center text-white align-middle transition-all ease-in bg-blue-500 border-0 rounded-lg shadow-md cursor-pointer text-xs tracking-tight-rem hover:shadow-xs hover:-translate-y-px active:opacity-85" value="Zakończ rezerwację" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </form>
                     </div>
                 </div>
             </div>
@@ -154,4 +199,13 @@
 
 <script src="~/js/plugins/perfect-scrollbar.min.js" async></script>
 <script src="~/js/admin-dashboard.js" async></script>
+<script>
+    let now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+    now.setMilliseconds(null)
+    now.setSeconds(null)
+
+    document.querySelector("#dtlocal").value = now.toISOString().slice(0, -1);
+</script>
 </html>

@@ -93,7 +93,7 @@
                 <li class="mt-0.5 w-full">
                     <a class="dark:text-white dark:opacity-80 py-2.7 text-sm ease-nav-brand my-0 mx-2 flex items-center whitespace-nowrap px-4 transition-colors" href="/users/makereservation">
                         <div class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-2.5">
-                            <i class="relative top-0 leading-normal text-orange-500 ni ni-spaceship text-sm"></i>
+                            <i class="relative top-0 leading-normal text-green-600 ni ni-spaceship text-sm"></i>
                         </div>
                         <span class="ml-1 duration-300 opacity-100 pointer-events-none ease">Dodaj rezerwację</span>
                     </a>
@@ -175,6 +175,9 @@
                                         <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
                                             Data zwrotu
                                         </th>
+                                        <th scope="col" class="align-middle text-center py-3.5 px-4 text-sm font-normal dark:text-gray-400">
+                                            Akcja
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y">
@@ -238,11 +241,24 @@
                                                     </h2>
                                                 </div>
                                             </td>
+                                            <td class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                                <div>
+                                                    <h2 class="text-[14px] m-0 font-medium text-white">
+                                                        @if (item.ReservationStatus == ReservationStatusEnum.NewReservation) {
+                                                            <a href="/Users/DeleteReservation/@item.ID" class="text-[14px] m-0 font-bold text-white">
+                                                                Usuń
+                                                            </a>
+                                                        } else {
+                                                            <span>N/A</span>
+                                                        }
+                                                    </h2>
+                                                </div>
+                                            </td>
                                         </tr>
                                     }
                                     @if (Model.Reservations.Count() == 0) {
                                         <tr>
-                                            <td colspan="7" class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
+                                            <td colspan="8" class="align-middle text-center px-4 py-4 text-sm font-medium whitespace-nowrap text-white">
                                                 Brak rezerwacji
                                             </td>
                                         </tr>
