@@ -90,14 +90,13 @@ namespace UBBBikeRentalSystem.Areas.Users.Controllers {
 
         [HttpPost]
         public IActionResult MakeReservation(POST_MakeReservationViewModel postModel) {
-
             Vehicle selectedVehicle = _vehicleRepository.Get(postModel.SelectedVehicle) ?? throw new Exception("Brak takiego pojazdu w DB");
             ReservationPoint selectedReservationPoint = _reservationPointRepository.Get(postModel.SelectedReservationPoint) ?? throw new Exception("Brak takiego punktu w DB");
 
             Reservation reservation = new() {
                 VehicleID = selectedVehicle,
                 ReservationPoint = selectedReservationPoint,
-                ReservationDate = DateTime.Now,
+                ReservationDate = postModel.SelectedReservationDate,
                 ReservationStatus = ReservationStatusEnum.NewReservation,
                 UserID = _userManager.FindByNameAsync(User?.Identity?.Name ?? "").Result ?? throw new Exception("Brak takiego użytkownika w DB")
             };
