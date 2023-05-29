@@ -153,6 +153,8 @@ namespace UBBBikeRentalSystem.Areas.Admin.Controllers {
                 loggedInUser = _mapper.Map<UserViewModel>(loggedInUser)
             };
 
+            return View(areaAdminUserReservationsViewModel);
+        }
             return View();
         }
     }
