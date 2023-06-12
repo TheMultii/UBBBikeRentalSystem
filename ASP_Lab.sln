@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP_Lab", "ASP_Lab\ASP_Lab.csproj", "{99710F50-8A84-4B3D-B9F9-DE0C961D7FD2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UBBBikeRentalSystem", "UBBBikeRentalSystem\UBBBikeRentalSystem.csproj", "{90F8518C-5D76-40A7-AD9E-BDBDB5E85285}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UBBBikeRentalSystem_Tests", "UBBBikeRentalSystem_Tests\UBBBikeRentalSystem_Tests.csproj", "{DB06567C-AB54-466A-BFA2-BB1EE64CF8DE}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{99710F50-8A84-4B3D-B9F9-DE0C961D7FD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99710F50-8A84-4B3D-B9F9-DE0C961D7FD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99710F50-8A84-4B3D-B9F9-DE0C961D7FD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99710F50-8A84-4B3D-B9F9-DE0C961D7FD2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90F8518C-5D76-40A7-AD9E-BDBDB5E85285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90F8518C-5D76-40A7-AD9E-BDBDB5E85285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90F8518C-5D76-40A7-AD9E-BDBDB5E85285}.Release|Any CPU.ActiveCfg = Release|Any CPU
