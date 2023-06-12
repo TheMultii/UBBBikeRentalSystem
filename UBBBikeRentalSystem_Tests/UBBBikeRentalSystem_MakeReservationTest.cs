@@ -3,7 +3,7 @@
 namespace UBBBikeRentalSystem_Tests {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class Tests : PageTest {
+    public class UBBBikeRentalSystem_MakeReservationTest : PageTest {
         private IPage? page;
         private string? expected_date;
         private DateTime? expected_date_time;
